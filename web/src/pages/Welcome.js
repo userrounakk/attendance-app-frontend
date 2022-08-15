@@ -1,5 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import banner from "../assets/welcome-banner.svg";
+import CustomLink from "../Components/CustomLink";
 function Welcome() {
   return (
     <div className="h-[100vh]">
@@ -11,7 +13,7 @@ function Welcome() {
             alt="Welcome to Nock banner"
           />
         </div>
-        <div className="md:flex-1 p-5 max-w-[500px] w-[100%] flex flex-col items-center md:items-start ">
+        <div className="p-5 max-w-[500px] w-[100%] flex flex-col items-center justify-between md:items-start md:flex-1">
           <div className="text-left w-[100%] pt-10 pl-6">
             <h1 className="text-3xl font-sans self-start text-left mb-4">
               Welcome to <span className=" text-primary">Nock</span>
@@ -20,11 +22,13 @@ function Welcome() {
               Smart Attendance Tracking App
             </p>
           </div>
-          <div>
-            <button className="font-sans text-xl m-10 py-5 px-10 bg-primary text-white">
-              Get Started ->
-            </button>
-          </div>
+
+          <CustomLink
+            className="mx-4 w-full text-center md:text-left"
+            path={"/login"}
+          >
+            Get Started {"->"}
+          </CustomLink>
         </div>
       </div>
     </div>
