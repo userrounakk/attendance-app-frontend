@@ -4,6 +4,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useState } from "react";
+import { dividerClasses } from "@mui/material";
 
 export default function AttendancePage() {
   const [enabled, setEnabled] = useState(false);
@@ -25,9 +26,28 @@ export default function AttendancePage() {
         <ArrowForwardIosIcon fontSize="small" color="primary" />
       </div>
       <div className="flex flex-row justify-between rounded-lg p-4 my-6 mx-12 border-gray-400 border-2">
-        <div className="text-blue-700">Checkin Not enabled yet</div>
-        <CheckCircleIcon color="primary" />
+        <div className="text-blue-700 flex flex-row">
+          <img src="./Man.svg" alt="" />
+          <div className="py-4 text-sm flex flex-row">
+            {enabled
+              ? "Total 57 Members were present"
+              : "Checkin Not enabled yet"}
+            <CheckCircleIcon color="primary" />
+          </div>
+        </div>
       </div>
+      {enabled ? (
+        <div className="flex flex-row justify-between rounded-lg p-4 my-6 mx-12 border-gray-400 border-2">
+          <img src="./Woman.svg" alt="" />
+          <div className="text-blue-700 py-4">
+            See who checked in today
+            <CheckCircleIcon color="primary" />
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
+
       <div className="py-12 flex flex-col items-center justify-center">
         <img src="./Clock.svg" />
         <div className="flex flex-row">
