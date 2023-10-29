@@ -3,8 +3,10 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useState } from "react";
 
 export default function AttendancePage() {
+  const [enabled, setEnabled] = useState(false);
   return (
     <div>
       <div className="p-8">
@@ -42,10 +44,24 @@ export default function AttendancePage() {
         </div>
         <div className="p-2 text-xs text-blue-700">Location</div>
       </div>
-      <div className="flex flex-row justify-between p-4 my-6 mx-12 border-blue-400 border-2">
-        <div className="text-blue-700">Enable Check In</div>
-        <CheckCircleIcon color="primary" />
+      <div
+        onClick={() => setEnabled(true)}
+        className="flex flex-row justify-between p-4 my-6 mx-12 border-blue-400 border-2"
+      >
+        <div className="text-blue-700">
+          {enabled ? "Check In Enabled" : "Enable Check In"}
+        </div>
       </div>
+      {enabled ? (
+        <div
+          onClick={() => setEnabled(false)}
+          className="p-8 text-center text-blue-700 underline"
+        >
+          Stop Check In
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
