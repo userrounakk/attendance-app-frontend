@@ -42,6 +42,7 @@ export default function Team() {
           const data = handleChange(teamName, teamDescription, teamProtected);
           data.then((res) => {
             setInviteCode(res.Invite);
+            localStorage.setItem("team_id", "28");
             console.log(res);
           });
         }}

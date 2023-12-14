@@ -4,10 +4,10 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useState } from "react";
-import { dividerClasses } from "@mui/material";
 
 export default function AttendancePage() {
   const [enabled, setEnabled] = useState(false);
+
   return (
     <div>
       <div className="p-8">
@@ -65,7 +65,9 @@ export default function AttendancePage() {
         <div className="p-2 text-xs text-blue-700">Location</div>
       </div>
       <div
-        onClick={() => setEnabled(true)}
+        onClick={() => {
+          setEnabled(true);
+        }}
         className="flex flex-row justify-between p-4 my-6 mx-12 border-blue-400 border-2"
       >
         <div className="text-blue-700">

@@ -9,9 +9,9 @@ export default function App() {
         Welcome to <div className="text-blue-700 px-2">Nock</div>
       </div>
       <div className="text-sm font-medium">Smart Attendance Tracking App</div>
-      <Link href="/attendance">
+      <Link href="/login">
         <div className="m-12 p-8 text-center text-white font-medium bg-blue-700">
-          Sign In
+          Get Started
           <ArrowForwardIcon />
         </div>
       </Link>

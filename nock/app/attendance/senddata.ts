@@ -1,13 +1,11 @@
 "use server";
-export async function handleChange(
-  teamName: string,
-  teamDescription: string,
-  teamProtected: boolean
-) {
+
+export async function createMeeting() {
+  const teamId = localStorage.getItem("team_id");
   const data = {
-    name: teamName,
-    description: teamDescription,
-    protected: teamProtected,
+    name: "New meeting",
+    description: "Some description",
+    protected: false,
   };
 
   const token =
