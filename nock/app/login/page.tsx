@@ -1,18 +1,26 @@
 "use client";
 import axios from "axios";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const router = useRouter();
 
   async function initiateLogin() {
     console.log(email, pass);
-    let res = await axios.post("https://atapp.fly.dev/v1/auth/login", {
-      email: email,
-      password: pass,
-    });
-    console.log(res.data);
+    try {
+      let res = await axios.post("https://atapp.fly.dev/v1/auth/login", {
+        email: email,
+        password: pass,
+      });
+      console.log(res.data);
+      localStorage.setItem("userData", JSON.stringify(res.data));
+      router.push("/dashboard");
+    } catch (e) {
+      console.error(e);
+    }
+
     //let res = await fetch("https://atapp.fly.dev/v1/auth/google/login");
     //console.log(await res.json());
   }

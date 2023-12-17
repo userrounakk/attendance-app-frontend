@@ -28,7 +28,7 @@ export default function Signin() {
   }
   return (
     <div className="px-8 py-16">
-      <div className="font-bold text-2xl py-8">Log In</div>
+      <div className="font-bold text-2xl py-8">Register</div>
       <div className="flex flex-col">
         <label htmlFor="">Name</label>
         <input

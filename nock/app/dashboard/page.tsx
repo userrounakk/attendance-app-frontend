@@ -1,24 +1,38 @@
 "use client";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Link from "next/link";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import EmptyDashboard from "./components/EmptyDashboard";
+import NonEmptyDashboard from "./components/NonEmptyDashboard";
 export default function App() {
+  const [teams, setTeams] = useState([]);
+  useEffect(() => {
+    const userData = localStorage.getItem("userData")!;
+    let data = JSON.parse(userData);
+    async function getTeams() {
+      try {
+        console.log("bruh");
+        const config = {
+          headers: { Authorization: `Bearer ${data.token}` },
+        };
+        let res = await axios.get(
+          "https://atapp.fly.dev/v1/user/me/teams",
+          config
+        );
+        setTeams(res.data);
+        console.log(res.data);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    getTeams();
+  }, []);
   return (
-    <div className="h-full justify-between flex flex-col p-8">
-      <img src="SigninImg.svg" alt="" />
-      <div className="font-medium text-3xl">
-        Welcome to <span className="text-blue-700 px-2">Nock</span>
-      </div>
-      <div className="text-sm font-medium">Smart Attendance Tracking App</div>
-      <Link href="/create-team">
-        <div className="rounded-md mx-12 my-4 p-4 text-center text-white font-medium bg-blue-700">
-          Create Team
-        </div>
-      </Link>
-      <Link href="/join-team">
-        <div className="rounded-md mx-12 my-4 p-4 text-center text-white font-medium bg-blue-700">
-          Join Team
-        </div>
-      </Link>
-    </div>
+    <>
+      {teams.length === 0 ? (
+        <EmptyDashboard />
+      ) : (
+        <NonEmptyDashboard teams={teams} />
+      )}
+    </>
   );
 }
