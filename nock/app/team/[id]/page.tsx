@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { MeetCard } from "./components/MeetCard";
 
 type Props = {
   params: {
@@ -11,87 +12,11 @@ type Props = {
 export default function Team({ params }: Props) {
   const [teamMembers, setTeamMembers] = useState([]);
   const [teamJoinRequests, setTeamJoinRequests] = useState([]);
-  useEffect(() => {
-    async function getTeamMembers() {
-      const userData = localStorage.getItem("userData")!;
-      let data = JSON.parse(userData);
-      try {
-        const config = {
-          headers: { Authorization: `Bearer ${data.token}` },
-        };
-        let res = await axios.get(
-          `https://atapp.fly.dev/v1/team/${params.id}/members`,
-          config
-        );
-        setTeamMembers(res.data);
-        console.log(res.data);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    getTeamMembers();
-    async function getTeamJoinRequests() {
-      const userData = localStorage.getItem("userData")!;
-      let data = JSON.parse(userData);
-      try {
-        const config = {
-          headers: { Authorization: `Bearer ${data.token}` },
-        };
-        let res = await axios.get(
-          `https://atapp.fly.dev/v1/team/${params.id}/requests`,
-          config
-        );
-        setTeamJoinRequests(res.data);
-        console.log(res.data);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    getTeamJoinRequests();
-  }, []);
+  useEffect(() => {}, []);
   console.log(params);
   return (
-    <div className="px-4 py-8">
-      <div>Members</div>
-      <div className="flex flex-row">
-        <div className="p-8 m-2 text-center rounded-md flex-auto bg-[#D9D9D9]">
-          Send Link
-        </div>
-        <div className="p-8 m-2 text-center rounded-md flex-auto bg-[#D9D9D9]">
-          QR Code
-        </div>
-      </div>
-      <label htmlFor="searchbar" className="flex">
-        <input
-          className="border-2 flex-auto bg-[#D9D9D9] text-black placeholder:text-black p-1 rounded-md"
-          type="text"
-          placeholder="Search for name,email or student id"
-        />
-      </label>
-      <div className="py-4 text-slate-500">Requests</div>
-      <div className="px-4">
-        {teamJoinRequests.map((member: any, idx: number) => {
-          return <div>{member.User.Name}</div>;
-        })}
-      </div>
-      <div className="py-4 text-slate-500">Admins</div>
-      <div className="px-4">
-        {teamMembers.map((member: any, idx: number) => {
-          if (member.Role === "super_admin")
-            return (
-              <div key={idx} className="flex flex-row justify-between">
-                <div>{member.User.Name}</div>
-                <div className="text-slate-500">Super Admin</div>
-              </div>
-            );
-        })}
-      </div>
-      <div className="py-4 text-slate-500">Participant</div>
-      <div className="px-4">
-        {teamMembers.map((member: any, idx: number) => {
-          if (member.Role === "member") return <div>{member.User.Name}</div>;
-        })}
-      </div>
+    <div>
+      <MeetCard date={"17 November 2023"} time={"7:00PM"} venue={"Foodys"} />
     </div>
   );
 }
