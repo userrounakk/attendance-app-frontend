@@ -10,13 +10,38 @@ type Props = {
 };
 
 export default function Team({ params }: Props) {
-  const [teamMembers, setTeamMembers] = useState([]);
-  const [teamJoinRequests, setTeamJoinRequests] = useState([]);
-  useEffect(() => {}, []);
-  console.log(params);
+  const [meets, setMeets] = useState([]);
+  useEffect(() => {
+    async function getMeetingData() {
+      const userData = localStorage.getItem("userData")!;
+      let data = JSON.parse(userData);
+      const config = {
+        headers: { Authorization: `Bearer ${data.token}` },
+      };
+      const res = await axios.get(
+        `https://atapp.fly.dev/v1/team/${params.id}/meetings?filterBy=upcoming&orderBy=desc`,
+        config
+      );
+      console.log(res.data);
+      setMeets(res.data);
+    }
+    getMeetingData();
+  }, []);
   return (
     <div>
-      <MeetCard date={"17 November 2023"} time={"7:00PM"} venue={"Foodys"} />
+      {meets.map((meet: any, idx: number) => {
+        const time = new Date(meet.StartTime).toDateString();
+        return (
+          <MeetCard
+            key={idx}
+            date={new Date(meet.StartTime).toDateString()}
+            time={new Date(meet.StartTime).toTimeString()}
+            venue={meet.Venue}
+            teamId={params.id}
+            meetId={meet.ID}
+          />
+        );
+      })}
     </div>
   );
 }
