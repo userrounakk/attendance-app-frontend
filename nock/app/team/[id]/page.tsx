@@ -2,6 +2,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MeetCard } from "./components/MeetCard";
+import { Toaster } from "react-hot-toast";
 
 type Props = {
   params: {
@@ -11,6 +12,9 @@ type Props = {
 
 export default function Team({ params }: Props) {
   const [meets, setMeets] = useState([]);
+  const [goingStates, setGoingStates] = useState<any>({}); // Use an object to store going state for each meet
+  const [attendanceStates, setAttendanceStates] = useState<any>({});
+
   useEffect(() => {
     async function getMeetingData() {
       const userData = localStorage.getItem("userData")!;
@@ -24,13 +28,24 @@ export default function Team({ params }: Props) {
       );
       console.log(res.data);
       setMeets(res.data);
+      const initialStates: any = {};
+      const attendanceStates: any = {};
+      res.data.forEach((meet: any) => {
+        initialStates[meet.ID] = false;
+        attendanceStates[meet.ID] = false;
+      });
+      setGoingStates(initialStates);
+      setAttendanceStates(attendanceStates);
     }
     getMeetingData();
   }, []);
+
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false} />
       {meets.map((meet: any, idx: number) => {
-        const time = new Date(meet.StartTime).toDateString();
+        const going = goingStates[meet.ID];
+        const attendance = attendanceStates[meet.ID];
         return (
           <MeetCard
             key={idx}
@@ -39,6 +54,19 @@ export default function Team({ params }: Props) {
             venue={meet.Venue}
             teamId={params.id}
             meetId={meet.ID}
+            onGoing={going}
+            setGoing={(value: any) => {
+              setGoingStates((prev: any) => ({ ...prev, [meet.ID]: value }));
+              console.log(value, goingStates);
+            }}
+            attendance={attendance}
+            setAttendance={(value: any) => {
+              setAttendanceStates((prev: any) => ({
+                ...prev,
+                [meet.ID]: value,
+              }));
+              console.log(value, attendanceStates);
+            }}
           />
         );
       })}
