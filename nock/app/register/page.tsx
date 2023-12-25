@@ -8,7 +8,7 @@ export default function Signin() {
   const [pass, setPass] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
 
-  async function initiateLogin() {
+  async function initiateSignup() {
     console.log(email, pass);
     if (pass === confirmPass) {
       let res = await axios.post("https://atapp.fly.dev/v1/auth/register", {
@@ -63,7 +63,7 @@ export default function Signin() {
       </div>
       <button
         className="bg-[#3D73DD] text-white py-4 px-16 my-2 rounded-md w-[100%]"
-        onClick={initiateLogin}
+        onClick={initiateSignup}
       >
         Register
       </button>

@@ -15,6 +15,7 @@ type Props = {
   setGoing: any;
   attendance: boolean;
   setAttendance: any;
+  userRole: string;
 };
 export function MeetCard({
   date,
@@ -26,6 +27,7 @@ export function MeetCard({
   setGoing,
   attendance,
   setAttendance,
+  userRole,
 }: Props) {
   async function startMeeting() {
     try {
@@ -154,11 +156,37 @@ export function MeetCard({
     }
   }
 
+  async function giveAttendance() {
+    try {
+      const userData = localStorage.getItem("userData")!;
+      let data = JSON.parse(userData);
+      const config = {
+        headers: { Authorization: `Bearer ${data.token}` },
+      };
+      const res = await axios.patch(
+        `https://atapp.fly.dev/v1/team/${teamId}/meetings/${meetId}/attendance`,
+        {},
+        config
+      );
+      console.log(res.data, res.status);
+      if (res.status === 200) {
+        setGoing(true);
+        toast.success("attendance posted!");
+      } else {
+        toast.error(res.data.error);
+      }
+    } catch (e) {}
+  }
+
   function handleAttendance() {
-    if (attendance) {
-      stopAttendance();
+    if (userRole === "super_admin" || userRole === "admin") {
+      if (attendance) {
+        stopAttendance();
+      } else {
+        takeAttendance();
+      }
     } else {
-      takeAttendance();
+      giveAttendance();
     }
   }
   return (
@@ -178,7 +206,11 @@ export function MeetCard({
         className="text-center p-2 text-[#007AFF]"
         onClick={handleAttendance}
       >
-        {attendance ? "End Attendance" : "Take Attendance"}
+        {userRole === "super_admin" || userRole === "admin"
+          ? attendance
+            ? "End Attendance"
+            : "Take Attendance"
+          : "Give Attendance"}
       </div>
     </div>
   );

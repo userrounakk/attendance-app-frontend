@@ -14,6 +14,7 @@ export default function Team({ params }: Props) {
   const [meets, setMeets] = useState([]);
   const [goingStates, setGoingStates] = useState<any>({}); // Use an object to store going state for each meet
   const [attendanceStates, setAttendanceStates] = useState<any>({});
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
     async function getMeetingData() {
@@ -38,6 +39,21 @@ export default function Team({ params }: Props) {
       setAttendanceStates(attendanceStates);
     }
     getMeetingData();
+
+    async function getPlayerFunction() {
+      const userData = localStorage.getItem("userData")!;
+      let data = JSON.parse(userData);
+      const config = {
+        headers: { Authorization: `Bearer ${data.token}` },
+      };
+      const res = await axios.get(
+        `https://atapp.fly.dev/v1/team/${params.id}/myrole`,
+        config
+      );
+      console.log(res.data);
+      setUserRole(res.data.role);
+    }
+    getPlayerFunction();
   }, []);
 
   return (
@@ -67,6 +83,7 @@ export default function Team({ params }: Props) {
               }));
               console.log(value, attendanceStates);
             }}
+            userRole={userRole}
           />
         );
       })}
