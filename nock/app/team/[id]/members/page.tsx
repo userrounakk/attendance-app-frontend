@@ -1,6 +1,7 @@
 "use client";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import BottomNav from "../components/BottomNav";
 
 type Props = {
   params: {
@@ -92,6 +93,7 @@ export default function Team({ params }: Props) {
           if (member.Role === "member") return <div>{member.User.Name}</div>;
         })}
       </div>
+      <BottomNav id={params.id} />
     </div>
   );
 }

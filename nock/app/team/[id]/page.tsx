@@ -3,7 +3,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MeetCard } from "./components/MeetCard";
 import { Toaster } from "react-hot-toast";
-
+import Home from "@mui/icons-material/Home";
+import { CalendarMonth, People, PeopleAlt } from "@mui/icons-material";
+import Link from "next/link";
+import BottomNav from "./components/BottomNav";
 type Props = {
   params: {
     id: string;
@@ -57,7 +60,7 @@ export default function Team({ params }: Props) {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <Toaster position="top-center" reverseOrder={false} />
       {meets.map((meet: any, idx: number) => {
         const going = goingStates[meet.ID];
@@ -87,6 +90,7 @@ export default function Team({ params }: Props) {
           />
         );
       })}
+      <BottomNav id={params.id} />
     </div>
   );
 }

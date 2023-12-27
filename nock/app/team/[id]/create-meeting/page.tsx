@@ -3,6 +3,7 @@ import axios from "axios";
 import { title } from "process";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import BottomNav from "../components/BottomNav";
 type Props = {
   params: {
     id: string;
@@ -139,6 +140,7 @@ export default function Team({ params }: Props) {
       >
         Create Meeting
       </button>
+      <BottomNav id={params.id} />
     </div>
   );
 }
