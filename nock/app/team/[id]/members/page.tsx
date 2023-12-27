@@ -72,7 +72,7 @@ export default function Team({ params }: Props) {
       <div className="py-4 text-slate-500">Requests</div>
       <div className="px-4">
         {teamJoinRequests.map((member: any, idx: number) => {
-          return <div>{member.User.Name}</div>;
+          return <div key={idx}>{member.User.Name}</div>;
         })}
       </div>
       <div className="py-4 text-slate-500">Admins</div>
