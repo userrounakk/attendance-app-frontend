@@ -61,6 +61,7 @@ export default function Team({ params }: Props) {
 
   return (
     <div className="">
+      <div className="text-2xl font-semibold p-4">Meetings</div>
       <Toaster position="top-center" reverseOrder={false} />
       {meets.map((meet: any, idx: number) => {
         const going = goingStates[meet.ID];

@@ -8,13 +8,21 @@ export default function CreateTeam() {
   const [publicGroup, setPublicGroup] = useState(false);
 
   async function initiateTeamCreation() {
-    /*  let res = await axios.post("https://atapp.fly.dev/v1/auth/login", {
-      email: email,
-      password: pass,
-    });
-    console.log(res.data); */
-    //let res = await fetch("https://atapp.fly.dev/v1/auth/google/login");
-    //console.log(await res.json());
+    const userData = localStorage.getItem("userData")!;
+    let data = JSON.parse(userData);
+    const config = {
+      headers: { Authorization: `Bearer ${data.token}` },
+    };
+    let res = await axios.post(
+      "https://atapp.fly.dev/v1/team",
+      {
+        name: teamName,
+        description: description,
+        protected: publicGroup,
+      },
+      config
+    );
+    console.log(res.data);
   }
   return (
     <div className="px-8 py-16">

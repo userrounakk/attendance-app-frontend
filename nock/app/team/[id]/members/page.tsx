@@ -90,7 +90,8 @@ export default function Team({ params }: Props) {
       <div className="py-4 text-slate-500">Participant</div>
       <div className="px-4">
         {teamMembers.map((member: any, idx: number) => {
-          if (member.Role === "member") return <div>{member.User.Name}</div>;
+          if (member.Role === "member")
+            return <div key={idx}>{member.User.Name}</div>;
         })}
       </div>
       <BottomNav id={params.id} />

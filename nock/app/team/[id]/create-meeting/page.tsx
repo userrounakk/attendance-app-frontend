@@ -114,25 +114,6 @@ export default function Team({ params }: Props) {
           type="text"
           onChange={(e) => setVenue(e.target.value)}
         />
-        {/* 
-        <div className="flex justify-center">
-          <MapContainer
-            center={{ lat: location!.lat, lng: location!.long }}
-            zoom={4}
-            scrollWheelZoom={false}
-            className="w-[300px] h-[300px]"
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[location!.lat, location!.long]} icon={icon}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </MapContainer>
-        </div> */}
       </div>
       <button
         className="bg-[#3D73DD] text-white py-4 px-16 my-2 rounded-md w-[100%]"
