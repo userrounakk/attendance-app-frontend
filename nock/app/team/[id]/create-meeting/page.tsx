@@ -4,6 +4,7 @@ import { title } from "process";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import BottomNav from "../components/BottomNav";
+import { useRouter } from "next/navigation";
 type Props = {
   params: {
     id: string;
@@ -21,7 +22,7 @@ export default function Team({ params }: Props) {
   const [meetingDescription, setMeetingDescription] = useState("");
   const [venue, setVenue] = useState("");
   const [startTime, setStartTime] = useState("");
-
+  const router = useRouter();
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
       const { latitude, longitude } = coords;
@@ -62,6 +63,7 @@ export default function Team({ params }: Props) {
       );
       if (res.status === 201) {
         toast.success("new meeting created!");
+        router.push(`/team/${params.id}`);
       } else {
         toast.error("failed to create new meeting");
       }
@@ -72,55 +74,57 @@ export default function Team({ params }: Props) {
   }
 
   return (
-    <div className="px-8 py-16">
-      <Toaster position="top-center" reverseOrder={false} />
-      <div className="font-bold text-2xl py-8">Create Meeting</div>
-      <div className="flex flex-col">
-        <label htmlFor="" className="text-slate-500">
-          Meeting Name
-        </label>
-        <input
-          className="border-2"
-          type="text"
-          onChange={(e) => setMeetingName(e.target.value)}
-        />
+    <div>
+      <div className="px-8 py-16">
+        <Toaster position="top-center" reverseOrder={false} />
+        <div className="font-bold text-2xl py-8">Create Meeting</div>
+        <div className="flex flex-col">
+          <label htmlFor="" className="text-slate-500">
+            Meeting Name
+          </label>
+          <input
+            className="border-2"
+            type="text"
+            onChange={(e) => setMeetingName(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="" className="text-slate-500">
+            Meeting Description
+          </label>
+          <input
+            className="border-2"
+            type="text"
+            onChange={(e) => setMeetingDescription(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="" className="text-slate-500">
+            Time
+          </label>
+          <input
+            className="border-2"
+            type="datetime-local"
+            onChange={(e) => setStartTime(e.target.value)}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="" className="text-slate-500">
+            Location
+          </label>
+          <input
+            className="border-2"
+            type="text"
+            onChange={(e) => setVenue(e.target.value)}
+          />
+        </div>
+        <button
+          className="bg-[#3D73DD] text-white py-4 px-16 my-2 rounded-md w-[100%]"
+          onClick={createMeeting}
+        >
+          Create Meeting
+        </button>
       </div>
-      <div className="flex flex-col">
-        <label htmlFor="" className="text-slate-500">
-          Meeting Description
-        </label>
-        <input
-          className="border-2"
-          type="text"
-          onChange={(e) => setMeetingDescription(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="" className="text-slate-500">
-          Time
-        </label>
-        <input
-          className="border-2"
-          type="datetime-local"
-          onChange={(e) => setStartTime(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="" className="text-slate-500">
-          Location
-        </label>
-        <input
-          className="border-2"
-          type="text"
-          onChange={(e) => setVenue(e.target.value)}
-        />
-      </div>
-      <button
-        className="bg-[#3D73DD] text-white py-4 px-16 my-2 rounded-md w-[100%]"
-        onClick={createMeeting}
-      >
-        Create Meeting
-      </button>
       <BottomNav id={params.id} />
     </div>
   );

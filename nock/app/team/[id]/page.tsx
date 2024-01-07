@@ -61,36 +61,44 @@ export default function Team({ params }: Props) {
 
   return (
     <div className="">
-      <div className="text-2xl font-semibold p-4">Meetings</div>
       <Toaster position="top-center" reverseOrder={false} />
-      {meets.map((meet: any, idx: number) => {
-        const going = goingStates[meet.ID];
-        const attendance = attendanceStates[meet.ID];
-        return (
-          <MeetCard
-            key={idx}
-            date={new Date(meet.StartTime).toDateString()}
-            time={new Date(meet.StartTime).toTimeString()}
-            venue={meet.Venue}
-            teamId={params.id}
-            meetId={meet.ID}
-            onGoing={going}
-            setGoing={(value: any) => {
-              setGoingStates((prev: any) => ({ ...prev, [meet.ID]: value }));
-              console.log(value, goingStates);
-            }}
-            attendance={attendance}
-            setAttendance={(value: any) => {
-              setAttendanceStates((prev: any) => ({
-                ...prev,
-                [meet.ID]: value,
-              }));
-              console.log(value, attendanceStates);
-            }}
-            userRole={userRole}
-          />
-        );
-      })}
+      <div className="text-2xl font-semibold p-4">Meetings</div>
+      {meets.length > 0 ? (
+        meets.map((meet: any, idx: number) => {
+          const going = goingStates[meet.ID];
+          const attendance = attendanceStates[meet.ID];
+          return (
+            <MeetCard
+              key={idx}
+              date={new Date(meet.StartTime).toDateString()}
+              time={new Date(meet.StartTime).toTimeString()}
+              venue={meet.Venue}
+              teamId={params.id}
+              meetId={meet.ID}
+              onGoing={going}
+              setGoing={(value: any) => {
+                setGoingStates((prev: any) => ({
+                  ...prev,
+                  [meet.ID]: value,
+                }));
+                console.log(value, goingStates);
+              }}
+              attendance={attendance}
+              setAttendance={(value: any) => {
+                setAttendanceStates((prev: any) => ({
+                  ...prev,
+                  [meet.ID]: value,
+                }));
+                console.log(value, attendanceStates);
+              }}
+              userRole={userRole}
+            />
+          );
+        })
+      ) : (
+        <div>"No meetings today!"</div>
+      )}
+
       <BottomNav id={params.id} />
     </div>
   );

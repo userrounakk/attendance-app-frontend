@@ -56,11 +56,11 @@ export default function Team({ params }: Props) {
       <div>Members</div>
       <div className="flex flex-row">
         <div className="p-8 m-2 text-center rounded-md flex-auto bg-[#D9D9D9]">
-          Send Link
+          Copy Code
         </div>
-        <div className="p-8 m-2 text-center rounded-md flex-auto bg-[#D9D9D9]">
+        {/* <div className="p-8 m-2 text-center rounded-md flex-auto bg-[#D9D9D9]">
           QR Code
-        </div>
+        </div> */}
       </div>
       <label htmlFor="searchbar" className="flex">
         <input

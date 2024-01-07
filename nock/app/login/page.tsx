@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -15,9 +16,12 @@ export default function Signin() {
         password: pass,
       });
       console.log(res.data);
+      toast.success("logged in sucessfully");
       localStorage.setItem("userData", JSON.stringify(res.data));
+
       router.push("/dashboard");
-    } catch (e) {
+    } catch (e: any) {
+      toast.error("login failed:", e);
       console.error(e);
     }
 
@@ -26,6 +30,7 @@ export default function Signin() {
   }
   return (
     <div className="px-8 py-16">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="font-bold text-2xl py-8">Log In</div>
       <div className="flex flex-col">
         <label htmlFor="">Email</label>
