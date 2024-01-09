@@ -3,8 +3,8 @@ import axios from "axios";
 import { title } from "process";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import BottomNav from "../components/BottomNav";
 import { useRouter } from "next/navigation";
+import BottomNav from "../components/BottomNav";
 type Props = {
   params: {
     id: string;

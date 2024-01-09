@@ -12,6 +12,7 @@ type Props = {
 export default function Team({ params }: Props) {
   const [teamMembers, setTeamMembers] = useState([]);
   const [teamJoinRequests, setTeamJoinRequests] = useState([]);
+  const [invite, setInvite] = useState("");
   useEffect(() => {
     async function getTeamMembers() {
       const userData = localStorage.getItem("userData")!;
@@ -26,6 +27,11 @@ export default function Team({ params }: Props) {
         );
         setTeamMembers(res.data);
         console.log(res.data);
+        res = await axios.get(
+          `https://atapp.fly.dev/v1/team/${params.id}`,
+          config
+        );
+        setInvite(res.data.Invite);
       } catch (e) {
         console.error(e);
       }
@@ -56,7 +62,7 @@ export default function Team({ params }: Props) {
       <div>Members</div>
       <div className="flex flex-row">
         <div className="p-8 m-2 text-center rounded-md flex-auto bg-[#D9D9D9]">
-          Copy Code
+          {invite}
         </div>
         {/* <div className="p-8 m-2 text-center rounded-md flex-auto bg-[#D9D9D9]">
           QR Code

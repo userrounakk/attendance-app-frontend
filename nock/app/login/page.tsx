@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -55,6 +56,9 @@ export default function Signin() {
       >
         Login
       </button>
+      <Link href={"/register"}>
+        <div>{"Don't have an account?"}</div>
+      </Link>
     </div>
   );
 }
