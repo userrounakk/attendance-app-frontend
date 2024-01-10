@@ -2,6 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 export default function CreateTeam() {
   const [teamName, setTeamName] = useState("");
   const [description, setDescription] = useState("");
@@ -13,19 +14,28 @@ export default function CreateTeam() {
     const config = {
       headers: { Authorization: `Bearer ${data.token}` },
     };
-    let res = await axios.post(
-      "https://atapp.fly.dev/v1/team",
-      {
-        name: teamName,
-        description: description,
-        protected: publicGroup,
-      },
-      config
-    );
-    console.log(res.data);
+    try {
+      let res = await axios.post(
+        "https://atapp.fly.dev/v1/team",
+        {
+          name: teamName,
+          description: description,
+          protected: publicGroup,
+        },
+        config
+      );
+      console.log(res.data);
+      if (res.status == 200) {
+        toast.success("team created!");
+      }
+    } catch (e: any) {
+      console.error(e);
+      toast.error("failed to create team");
+    }
   }
   return (
     <div className="px-8 py-16">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="font-bold text-2xl py-8">Create Team</div>
       <div className="flex flex-col my-8">
         <label htmlFor="" className="text-slate-500 text-sm">
