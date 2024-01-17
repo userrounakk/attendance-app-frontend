@@ -2,6 +2,8 @@
 import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
+import BackButton from "../components/BackButton";
+import { useRouter } from "next/router";
 export default function Signin() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,6 +30,7 @@ export default function Signin() {
   }
   return (
     <div className="px-8 py-16">
+      <BackButton />
       <div className="font-bold text-2xl py-8">Register</div>
       <div className="flex flex-col">
         <label htmlFor="">Name</label>

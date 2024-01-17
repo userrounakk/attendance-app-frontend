@@ -96,7 +96,7 @@ export default function Team({ params }: Props) {
           );
         })
       ) : (
-        <div>No meetings today!</div>
+        <div className="p-8">No meetings today!</div>
       )}
 
       <BottomNav id={params.id} />

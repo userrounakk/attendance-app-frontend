@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import BackButton from "../components/BackButton";
 export default function Signin() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -32,6 +33,7 @@ export default function Signin() {
   return (
     <div className="px-8 py-16">
       <Toaster position="top-center" reverseOrder={false} />
+      <BackButton />
       <div className="font-bold text-2xl py-8">Log In</div>
       <div className="flex flex-col">
         <label htmlFor="">Email</label>
