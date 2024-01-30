@@ -12,6 +12,7 @@ export default function NonEmptyDashboard({ teams }: any) {
 
   return (
     <div className="h-full justify-between flex flex-col p-8">
+      <div className="p-4 font-semibold text-lg">Teams</div>
       {teams.map((team: any, idx: number) => (
         <TeamCard
           key={idx}

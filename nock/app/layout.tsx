@@ -38,7 +38,9 @@ export default function RootLayout({
         <link rel="manifest" href="./manifest.json" />
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="max-w-md">{children}</div>
+      </body>
     </html>
   );
 }

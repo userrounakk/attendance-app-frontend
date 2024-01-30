@@ -15,6 +15,7 @@ type Props = {
 };
 
 export default function Team({ params }: Props) {
+  const [teamName, setTeamName] = useState("");
   const [meets, setMeets] = useState([]);
   const [goingStates, setGoingStates] = useState<any>({}); // Use an object to store going state for each meet
   const [attendanceStates, setAttendanceStates] = useState<any>({});
