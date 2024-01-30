@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 type Props = {
@@ -11,15 +11,26 @@ type Props = {
   };
 };
 export default function Attendees({ params }: Props) {
+  const [attendees, setAttendees] = useState<any[]>([]);
   console.log(params);
   useEffect(() => {
     async function getAttendees() {
+      console.log("bruh");
       try {
+        const userData = localStorage.getItem("userData")!;
+        let data = JSON.parse(userData);
+        const config = {
+          headers: { Authorization: `Bearer ${data.token}` },
+        };
         const res = await axios.get(
-          `https://atapp.fly.dev/v1/${params.id}/meetings/${params.meetId}/attendance`
+          `https://atapp.fly.dev/v1/team/${params.id}/meetings/${params.meetId}/attendance`,
+          config
         );
+        console.log(res.data);
+
         if (res.status == 200) {
           console.log(res.data);
+          setAttendees(res.data);
           toast.success("attendees fetched sucessfully");
         } else {
           toast.error("failed to fetch");
@@ -29,11 +40,17 @@ export default function Attendees({ params }: Props) {
         toast.error("failed to get attendees");
       }
     }
+    getAttendees();
   }, []);
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
-      <div>Attendees: </div>
+      <div className="p-4 font-semibold text-lg">Attendees: </div>
+      {attendees.map((attendee) => (
+        <div className="p-8 text-sm" key={attendee.ID}>
+          {attendee.User.Name}
+        </div>
+      ))}
     </div>
   );
 }

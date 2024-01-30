@@ -191,38 +191,40 @@ export function MeetCard({
   }
   return (
     <div className="bg-gray-200 rounded-md m-4">
-      <div className="text-center p-2">Meeting Alert</div>
-      <div className="p-4 text-sm">
-        <div>Date: {date}</div>
-        <div>Time: {time}</div>
-        <div>Venue: {venue}</div>
-      </div>
-      <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
-      {/* {userRole === "super_admin" || userRole === "admin": <div className="text-center p-2 text-[#007AFF]" onClick={handleMeeting}>
+      <Link href={`/team/${teamId}/${meetId}`}>
+        <div className="text-center p-2">Meeting Alert</div>
+        <div className="p-4 text-sm">
+          <div>Date: {date}</div>
+          <div>Time: {time}</div>
+          <div>Venue: {venue}</div>
+        </div>
+        <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
+        {/* {userRole === "super_admin" || userRole === "admin": <div className="text-center p-2 text-[#007AFF]" onClick={handleMeeting}>
         {onGoing ? "End Meeting" : "Start Meeting"}
       </div>:""} */}
-      {
-        userRole === "super_admin" || userRole === "admin" ? (
-          <div
-            className="text-center p-2 text-[#007AFF]"
-            onClick={handleMeeting}
-          >
-            {onGoing ? "End Meeting" : "Start Meeting"}
-          </div>
-        ) : null // or any other content you want to display when the condition is false
-      }
+        {
+          userRole === "super_admin" || userRole === "admin" ? (
+            <div
+              className="text-center p-2 text-[#007AFF]"
+              onClick={handleMeeting}
+            >
+              {onGoing ? "End Meeting" : "Start Meeting"}
+            </div>
+          ) : null // or any other content you want to display when the condition is false
+        }
 
-      <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
-      <div
-        className="text-center p-2 text-[#007AFF]"
-        onClick={handleAttendance}
-      >
-        {userRole === "super_admin" || userRole === "admin"
-          ? attendance
-            ? "End Attendance"
-            : "Take Attendance"
-          : "Give Attendance"}
-      </div>
+        <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
+        <div
+          className="text-center p-2 text-[#007AFF]"
+          onClick={handleAttendance}
+        >
+          {userRole === "super_admin" || userRole === "admin"
+            ? attendance
+              ? "End Attendance"
+              : "Take Attendance"
+            : "Give Attendance"}
+        </div>
+      </Link>
     </div>
   );
 }
