@@ -198,9 +198,20 @@ export function MeetCard({
         <div>Venue: {venue}</div>
       </div>
       <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
-      <div className="text-center p-2 text-[#007AFF]" onClick={handleMeeting}>
+      {/* {userRole === "super_admin" || userRole === "admin": <div className="text-center p-2 text-[#007AFF]" onClick={handleMeeting}>
         {onGoing ? "End Meeting" : "Start Meeting"}
-      </div>
+      </div>:""} */}
+      {
+        userRole === "super_admin" || userRole === "admin" ? (
+          <div
+            className="text-center p-2 text-[#007AFF]"
+            onClick={handleMeeting}
+          >
+            {onGoing ? "End Meeting" : "Start Meeting"}
+          </div>
+        ) : null // or any other content you want to display when the condition is false
+      }
+
       <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
       <div
         className="text-center p-2 text-[#007AFF]"

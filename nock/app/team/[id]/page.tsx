@@ -7,6 +7,7 @@ import Home from "@mui/icons-material/Home";
 import { CalendarMonth, People, PeopleAlt } from "@mui/icons-material";
 import Link from "next/link";
 import BottomNav from "./components/BottomNav";
+import BackButton from "@/app/components/BackButton";
 type Props = {
   params: {
     id: string;
@@ -62,6 +63,10 @@ export default function Team({ params }: Props) {
   return (
     <div className="">
       <Toaster position="top-center" reverseOrder={false} />
+      <div className="p-4">
+        <BackButton />
+      </div>
+
       <div className="text-2xl font-semibold p-4">Meetings</div>
       {meets.length > 0 ? (
         meets.map((meet: any, idx: number) => {

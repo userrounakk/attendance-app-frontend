@@ -1,4 +1,5 @@
 "use client";
+import BackButton from "@/app/components/BackButton";
 import axios from "axios";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -27,6 +28,7 @@ export default function JoinWithLink() {
   }
   return (
     <div className="px-8 py-16 mx-auto max-w-[500px]">
+      <BackButton />
       <Toaster position="top-center" reverseOrder={false} />
       <div className="font-bold text-2xl">Enter Code</div>
       <div className="text-slate-500">

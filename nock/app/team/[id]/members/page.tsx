@@ -2,6 +2,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import BottomNav from "../components/BottomNav";
+import BackButton from "@/app/components/BackButton";
 
 type Props = {
   params: {
@@ -59,7 +60,8 @@ export default function Team({ params }: Props) {
   console.log(params);
   return (
     <div className="px-4 py-8">
-      <div>Members</div>
+      <BackButton />
+      <div className="text-lg font-bold">Members</div>
       <div className="flex flex-row">
         <div className="p-8 m-2 text-center rounded-md flex-auto bg-[#D9D9D9]">
           {invite}

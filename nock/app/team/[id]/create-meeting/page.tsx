@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import BottomNav from "../components/BottomNav";
+import BackButton from "@/app/components/BackButton";
 type Props = {
   params: {
     id: string;
@@ -76,6 +77,7 @@ export default function Team({ params }: Props) {
     <div>
       <div className="px-8 py-16">
         <Toaster position="top-center" reverseOrder={false} />
+        <BackButton />
         <div className="font-bold text-2xl py-8">Create Meeting</div>
         <div className="flex flex-col">
           <label htmlFor="" className="text-slate-500">

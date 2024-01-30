@@ -3,6 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import BackButton from "../components/BackButton";
 export default function CreateTeam() {
   const [teamName, setTeamName] = useState("");
   const [description, setDescription] = useState("");
@@ -36,6 +37,7 @@ export default function CreateTeam() {
   return (
     <div className="px-8 py-16">
       <Toaster position="top-center" reverseOrder={false} />
+      <BackButton />
       <div className="font-bold text-2xl py-8">Create Team</div>
       <div className="flex flex-col my-8">
         <label htmlFor="" className="text-slate-500 text-sm">
