@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 type Props = {
@@ -17,6 +17,10 @@ type Props = {
   setAttendance: any;
   userRole: string;
 };
+type Location = {
+  lat: number;
+  long: number;
+};
 export function MeetCard({
   date,
   time,
@@ -29,6 +33,14 @@ export function MeetCard({
   setAttendance,
   userRole,
 }: Props) {
+  const [location, setLocation] = useState<Location>({ lat: 0, long: 0 });
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      const { latitude, longitude } = coords;
+      setLocation({ lat: latitude, long: longitude });
+      console.log(latitude, longitude);
+    });
+  }, []);
   async function startMeeting() {
     try {
       const userData = localStorage.getItem("userData")!;
@@ -163,6 +175,21 @@ export function MeetCard({
       const config = {
         headers: { Authorization: `Bearer ${data.token}` },
       };
+      const meetRes = await axios.patch(
+        `https://atapp.fly.dev/v1/team/${teamId}/meetings/${meetId}/attendance`,
+        {},
+        config
+      );
+
+      const distance =
+        meetRes.data.Location.Latitude -
+        location.lat +
+        (meetRes.data.Location.Longitude - location.long);
+      if (distance > 50) {
+        toast.error("too far away to mark attendance");
+        return;
+      }
+
       const res = await axios.patch(
         `https://atapp.fly.dev/v1/team/${teamId}/meetings/${meetId}/attendance`,
         {},
@@ -173,6 +200,7 @@ export function MeetCard({
         setGoing(true);
         toast.success("attendance posted!");
       } else {
+        toast.error("failed to mark attendance");
         toast.error(res.data.error);
       }
     } catch (e) {}
@@ -198,33 +226,33 @@ export function MeetCard({
           <div>Time: {time}</div>
           <div>Venue: {venue}</div>
         </div>
-        <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
-        {/* {userRole === "super_admin" || userRole === "admin": <div className="text-center p-2 text-[#007AFF]" onClick={handleMeeting}>
+      </Link>
+      <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
+      {/* {userRole === "super_admin" || userRole === "admin": <div className="text-center p-2 text-[#007AFF]" onClick={handleMeeting}>
         {onGoing ? "End Meeting" : "Start Meeting"}
       </div>:""} */}
-        {
-          userRole === "super_admin" || userRole === "admin" ? (
-            <div
-              className="text-center p-2 text-[#007AFF]"
-              onClick={handleMeeting}
-            >
-              {onGoing ? "End Meeting" : "Start Meeting"}
-            </div>
-          ) : null // or any other content you want to display when the condition is false
-        }
+      {
+        userRole === "super_admin" || userRole === "admin" ? (
+          <div
+            className="text-center p-2 text-[#007AFF]"
+            onClick={handleMeeting}
+          >
+            {onGoing ? "End Meeting" : "Start Meeting"}
+          </div>
+        ) : null // or any other content you want to display when the condition is false
+      }
 
-        <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
-        <div
-          className="text-center p-2 text-[#007AFF]"
-          onClick={handleAttendance}
-        >
-          {userRole === "super_admin" || userRole === "admin"
-            ? attendance
-              ? "End Attendance"
-              : "Take Attendance"
-            : "Give Attendance"}
-        </div>
-      </Link>
+      <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
+      <div
+        className="text-center p-2 text-[#007AFF]"
+        onClick={handleAttendance}
+      >
+        {userRole === "super_admin" || userRole === "admin"
+          ? attendance
+            ? "End Attendance"
+            : "Take Attendance"
+          : "Give Attendance"}
+      </div>
     </div>
   );
 }
