@@ -48,7 +48,7 @@ export default function Attendees({ params }: Props) {
       <div className="p-4 font-semibold text-lg">Attendees: </div>
       {attendees &&
         attendees.map((attendee) => (
-          <div className="flex flex-row">
+          <div key={attendee.ID} className="flex flex-row">
             <img src={attendee.User.ProfileImage} alt="" />
             <div className="p-8 text-sm" key={attendee.ID}>
               {attendee.User.Name}
