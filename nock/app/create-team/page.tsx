@@ -45,7 +45,7 @@ export default function CreateTeam() {
         </label>
         <input
           className="border-2"
-          type="email"
+          type="text"
           defaultValue={teamName}
           onChange={(e) => setTeamName(e.target.value)}
         />

@@ -5,6 +5,7 @@ import Link from "next/link";
 export default function NonEmptyDashboard({ teams }: any) {
   console.log(teams);
   const [showOptions, setShowOptions] = useState(false);
+  
 
   function handleButtonClick() {
     setShowOptions(!showOptions);

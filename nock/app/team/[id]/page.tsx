@@ -3,9 +3,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MeetCard } from "./components/MeetCard";
 import { Toaster } from "react-hot-toast";
-import Home from "@mui/icons-material/Home";
-import { CalendarMonth, People, PeopleAlt } from "@mui/icons-material";
-import Link from "next/link";
 import BottomNav from "./components/BottomNav";
 import BackButton from "@/app/components/BackButton";
 type Props = {
@@ -17,9 +14,11 @@ type Props = {
 export default function Team({ params }: Props) {
   const [teamName, setTeamName] = useState("");
   const [meets, setMeets] = useState([]);
+  const [doneMeets, setDoneMeets] = useState([]);
   const [goingStates, setGoingStates] = useState<any>({}); // Use an object to store going state for each meet
   const [attendanceStates, setAttendanceStates] = useState<any>({});
   const [userRole, setUserRole] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getMeetingData() {
@@ -59,15 +58,34 @@ export default function Team({ params }: Props) {
       setUserRole(res.data.role);
     }
     getPlayerFunction();
+
+    async function getTeamData() {
+      const userData = localStorage.getItem("userData")!;
+      let data = JSON.parse(userData);
+      const config = {
+        headers: { Authorization: `Bearer ${data.token}` },
+      };
+      const res = await axios.get(
+        `https://atapp.fly.dev/v1/team/${params.id}`,
+        config
+      );
+      setTeamName(res.data.Name);
+    }
+    getTeamData();
+    setLoading(false);
+    console.log(teamName, userRole);
   }, []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="">
       <Toaster position="top-center" reverseOrder={false} />
       <div className="p-4">
         <BackButton />
       </div>
-
+      <div className="text-2xl font-bold p-4">Team {teamName}</div>
       <div className="text-2xl font-semibold p-4">Meetings</div>
       {meets.length > 0 ? (
         meets.map((meet: any, idx: number) => {

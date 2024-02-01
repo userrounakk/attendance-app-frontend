@@ -5,6 +5,7 @@ import EmptyDashboard from "./components/EmptyDashboard";
 import NonEmptyDashboard from "./components/NonEmptyDashboard";
 export default function App() {
   const [teams, setTeams] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const userData = localStorage.getItem("userData")!;
     let data = JSON.parse(userData);
@@ -19,6 +20,7 @@ export default function App() {
           config
         );
         setTeams(res.data);
+        setLoading(false);
         console.log(res.data);
       } catch (e) {
         console.error(e);
@@ -26,6 +28,9 @@ export default function App() {
     }
     getTeams();
   }, []);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       {teams.length === 0 ? (

@@ -46,11 +46,22 @@ export default function Attendees({ params }: Props) {
     <div>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="p-4 font-semibold text-lg">Attendees: </div>
-      {attendees.map((attendee) => (
-        <div className="p-8 text-sm" key={attendee.ID}>
-          {attendee.User.Name}
-        </div>
-      ))}
+      {attendees &&
+        attendees.map((attendee) => (
+          <div className="flex flex-row">
+            <img src={attendee.User.ProfileImage} alt="" />
+            <div className="p-8 text-sm" key={attendee.ID}>
+              {attendee.User.Name}
+            </div>
+            <div>
+              {attendee.OnTime ? (
+                <span className="text-[#2BA24C]">On Time</span>
+              ) : (
+                <span className="text-[#E43E2B]">Late</span>
+              )}
+            </div>
+          </div>
+        ))}
     </div>
   );
 }

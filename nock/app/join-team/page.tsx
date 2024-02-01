@@ -8,7 +8,7 @@ export default function JoinTeam() {
       <BackButton />
       <Link href="join-team/link">
         <div className="rounded-md mx-12 my-4 p-4 text-center font-medium bg-[#D9D9D9]">
-          Enter Link
+          Enter Code
         </div>
       </Link>
     </div>

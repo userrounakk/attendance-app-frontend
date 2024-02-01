@@ -84,7 +84,7 @@ export default function Team({ params }: Props) {
             Meeting Name
           </label>
           <input
-            className="border-2"
+            className="border-b-2 border-black"
             type="text"
             onChange={(e) => setMeetingName(e.target.value)}
           />
@@ -94,7 +94,7 @@ export default function Team({ params }: Props) {
             Meeting Description
           </label>
           <input
-            className="border-2"
+            className="border-b-2 border-black"
             type="text"
             onChange={(e) => setMeetingDescription(e.target.value)}
           />
@@ -104,7 +104,7 @@ export default function Team({ params }: Props) {
             Time
           </label>
           <input
-            className="border-2"
+            className="border-b-2 border-black"
             type="datetime-local"
             onChange={(e) => setStartTime(e.target.value)}
           />
@@ -114,7 +114,7 @@ export default function Team({ params }: Props) {
             Location
           </label>
           <input
-            className="border-2"
+            className="border-b-2 border-black"
             type="text"
             onChange={(e) => setVenue(e.target.value)}
           />
