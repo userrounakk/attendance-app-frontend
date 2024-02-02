@@ -2,10 +2,10 @@
 import { useState } from "react";
 import TeamCard from "./TeamCard";
 import Link from "next/link";
+import BottomNav from "@/app/team/[id]/components/BottomNav";
 export default function NonEmptyDashboard({ teams }: any) {
   console.log(teams);
   const [showOptions, setShowOptions] = useState(false);
-  
 
   function handleButtonClick() {
     setShowOptions(!showOptions);
@@ -37,6 +37,7 @@ export default function NonEmptyDashboard({ teams }: any) {
           <Link href="/join-team">Join Team</Link>
         </div>
       )}
+      <BottomNav />
     </div>
   );
 }

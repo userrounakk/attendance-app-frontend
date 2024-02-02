@@ -1,26 +1,18 @@
-import { CalendarMonth, Home, People } from "@mui/icons-material";
+import { CalendarMonth, Home, People, Videocam } from "@mui/icons-material";
 import Link from "next/link";
 
 export default function BottomNav({ id }: any) {
   return (
     <div className=" bottom-0 w-full max-w-md">
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-center">
         <div>
-          <Link href={`/team/${id}`}>
+          <Link href={`/dashboard`}>
             <Home fontSize="large" className="m-2 mx-4 text-[#007AFF]" />
           </Link>
         </div>
         <div>
-          <Link href={`/team/${id}/members`}>
-            <People fontSize="large" className="m-2 text-[#007AFF]" />
-          </Link>
-        </div>
-        <div>
-          <Link href={`/team/${id}/create-meeting`}>
-            <CalendarMonth
-              fontSize="large"
-              className="m-2 mx-4 text-[#007AFF]"
-            />
+          <Link href={`/meets`}>
+            <Videocam fontSize="large" className="m-2 text-[#007AFF]" />
           </Link>
         </div>
       </div>

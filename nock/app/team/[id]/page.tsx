@@ -5,7 +5,9 @@ import { MeetCard } from "./components/MeetCard";
 import { Toaster } from "react-hot-toast";
 import BottomNav from "./components/BottomNav";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import BackButton from "@/app/components/BackButton";
+import Link from "next/link";
 type Props = {
   params: {
     id: string;
@@ -15,7 +17,6 @@ type Props = {
 export default function Team({ params }: Props) {
   const [teamName, setTeamName] = useState("");
   const [meets, setMeets] = useState([]);
-  const [doneMeets, setDoneMeets] = useState([]);
   const [goingStates, setGoingStates] = useState<any>({}); // Use an object to store going state for each meet
   const [attendanceStates, setAttendanceStates] = useState<any>({});
   const [userRole, setUserRole] = useState("");
@@ -159,6 +160,19 @@ export default function Team({ params }: Props) {
         })
       ) : (
         <div className="p-8">No meetings today!</div>
+      )}
+      {userRole === "admin" || userRole === "super_admin" ? (
+        <Link href={`/team/${params.id}/create-meeting`}>
+          <div
+            title="Create or join team"
+            className=" fixed z-90 bottom-10 right-8 bg-blue-600 p-3 rounded-3xl drop-shadow-lg flex justify-center items-center text-white text-md hover:bg-blue-700 hover:drop-shadow-2xl duration-200"
+          >
+            <EditCalendarIcon className="mx-2" />
+            Create new meeting
+          </div>
+        </Link>
+      ) : (
+        ""
       )}
 
       <BottomNav id={params.id} />
