@@ -126,7 +126,7 @@ export default function Team({ params }: Props) {
           Create Meeting
         </button>
       </div>
-      <BottomNav id={params.id} />
+      <BottomNav />
     </div>
   );
 }
