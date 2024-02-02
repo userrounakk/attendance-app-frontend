@@ -1,9 +1,9 @@
-import { CalendarMonth, Home, People, Videocam } from "@mui/icons-material";
+import { Home, Videocam } from "@mui/icons-material";
 import Link from "next/link";
 
-export default function BottomNav({ id }: any) {
+export default function BottomNav() {
   return (
-    <div className=" bottom-0 w-full max-w-md">
+    <div className="bottom-0 fixed bg-white w-full max-w-md">
       <div className="flex flex-row justify-center">
         <div>
           <Link href={`/dashboard`}>

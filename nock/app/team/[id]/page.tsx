@@ -6,8 +6,9 @@ import { Toaster } from "react-hot-toast";
 import BottomNav from "./components/BottomNav";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
-import BackButton from "@/app/components/BackButton";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Link from "next/link";
+import BackButton from "@/app/components/BackButton";
 type Props = {
   params: {
     id: string;
@@ -98,11 +99,14 @@ export default function Team({ params }: Props) {
   return (
     <div className="">
       <Toaster position="top-center" reverseOrder={false} />
-      {/*  <div className="p-4">
+
+      <div className="p-4">
         <BackButton />
-      </div> */}
-      <div>
+      </div>
+
+      <div className="flex flex-row justify-between">
         <AccountCircleIcon className="text-[#D9D9D9] m-4" fontSize="large" />
+        <MoreHorizIcon className="m-4" fontSize="large" />
       </div>
       <div className="flex flex-row space-x-3 justify-center my-3">
         <div
@@ -161,11 +165,12 @@ export default function Team({ params }: Props) {
       ) : (
         <div className="p-8">No meetings today!</div>
       )}
-      {userRole === "admin" || userRole === "super_admin" ? (
+      <div className="h-20"></div>
+      {userRole === "super_admin" ? (
         <Link href={`/team/${params.id}/create-meeting`}>
           <div
             title="Create or join team"
-            className=" fixed z-90 bottom-10 right-8 bg-blue-600 p-3 rounded-3xl drop-shadow-lg flex justify-center items-center text-white text-md hover:bg-blue-700 hover:drop-shadow-2xl duration-200"
+            className=" fixed z-90 bottom-20 right-8 bg-blue-600 p-3 rounded-3xl drop-shadow-lg flex justify-center items-center text-white text-md hover:bg-blue-700 hover:drop-shadow-2xl duration-200"
           >
             <EditCalendarIcon className="mx-2" />
             Create new meeting
@@ -175,7 +180,7 @@ export default function Team({ params }: Props) {
         ""
       )}
 
-      <BottomNav id={params.id} />
+      <BottomNav />
     </div>
   );
 }

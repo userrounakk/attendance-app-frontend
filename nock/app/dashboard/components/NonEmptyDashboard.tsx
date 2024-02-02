@@ -25,12 +25,12 @@ export default function NonEmptyDashboard({ teams }: any) {
       <button
         onClick={handleButtonClick}
         title="Create or join team"
-        className="fixed z-90 bottom-10 right-8 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-blue-700 hover:drop-shadow-2xl duration-200"
+        className="fixed right-8 z-90 bottom-24 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-blue-700 hover:drop-shadow-2xl duration-200"
       >
         +
       </button>
       {showOptions && (
-        <div className="absolute bottom-32 right-8 flex flex-col bg-white p-4 shadow-md rounded">
+        <div className="absolute bottom-44 right-8 flex flex-col bg-white p-4 shadow-md rounded">
           <Link href="/create-team" className="mb-2">
             Create Team
           </Link>
