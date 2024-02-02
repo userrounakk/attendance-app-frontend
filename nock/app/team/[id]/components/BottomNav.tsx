@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function BottomNav({ id }: any) {
   return (
-    <div className=" bottom-0 fixed w-full max-w-md">
+    <div className=" bottom-0 w-full max-w-md">
       <div className="flex flex-row justify-between">
         <div>
           <Link href={`/team/${id}`}>

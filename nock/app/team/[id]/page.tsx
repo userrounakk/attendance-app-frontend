@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { MeetCard } from "./components/MeetCard";
 import { Toaster } from "react-hot-toast";
 import BottomNav from "./components/BottomNav";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import BackButton from "@/app/components/BackButton";
 type Props = {
   params: {
@@ -76,17 +77,54 @@ export default function Team({ params }: Props) {
     console.log(teamName, userRole);
   }, []);
 
+  async function getMeetings(filter: string) {
+    const userData = localStorage.getItem("userData")!;
+    let data = JSON.parse(userData);
+    const config = {
+      headers: { Authorization: `Bearer ${data.token}` },
+    };
+    const res = await axios.get(
+      `https://atapp.fly.dev/v1/team/${params.id}/meetings?filterBy=${filter}&orderBy=desc`,
+      config
+    );
+    console.log(res.data);
+    setMeets(res.data);
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
   return (
     <div className="">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="p-4">
+      {/*  <div className="p-4">
         <BackButton />
+      </div> */}
+      <div>
+        <AccountCircleIcon className="text-[#D9D9D9] m-4" fontSize="large" />
       </div>
-      <div className="text-2xl font-bold p-4">Team {teamName}</div>
-      <div className="text-2xl font-semibold p-4">Meetings</div>
+      <div className="flex flex-row space-x-3 justify-center my-3">
+        <div
+          className="bg-[#D9D9D9] rounded-2xl p-1 text-xs"
+          onClick={() => getMeetings("upcoming")}
+        >
+          upcoming
+        </div>
+        <div
+          className="bg-[#D9D9D9] rounded-2xl p-1 text-xs"
+          onClick={() => getMeetings("all")}
+        >
+          all
+        </div>
+        <div
+          className="bg-[#D9D9D9] rounded-2xl p-1 text-xs"
+          onClick={() => getMeetings("past")}
+        >
+          done
+        </div>
+      </div>
+      <div className="text-2xl font-bold p-2">Team {teamName}</div>
+      <div className="text-2xl font-semibold p-2">Meetings</div>
       {meets.length > 0 ? (
         meets.map((meet: any, idx: number) => {
           const going = goingStates[meet.ID];
