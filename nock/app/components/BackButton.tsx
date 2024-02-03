@@ -6,7 +6,7 @@ export default function BackButton() {
   const router = useRouter();
   return (
     <div
-      className="p-2 rounded-md border-2 border-[#E8ECF4] w-[40px] h-[40px]"
+      className="flex justify-center items-center p-2 rounded-xl border border-[#E8ECF4] w-max"
       onClick={() => {
         router.back();
       }}
