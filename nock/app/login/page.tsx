@@ -26,9 +26,6 @@ export default function Signin() {
       toast.error("login failed:", e);
       console.error(e);
     }
-
-    //let res = await fetch("https://atapp.fly.dev/v1/auth/google/login");
-    //console.log(await res.json());
   }
   return (
     <div className="px-8 py-16">
@@ -51,7 +48,10 @@ export default function Signin() {
           onChange={(e) => setPass(e.target.value)}
         />
       </div>
-      <div className="flex justify-end py-4">Forgot Password?</div>
+      <Link href={"/forgot-password"}>
+        <div className="flex justify-end py-4">Forgot Password?</div>
+      </Link>
+
       <button
         className="bg-[#3D73DD] text-white py-4 px-16 my-2 rounded-md w-[100%]"
         onClick={initiateLogin}
