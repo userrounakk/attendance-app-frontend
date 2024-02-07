@@ -15,24 +15,24 @@ export default function CreateTeam() {
     const config = {
       headers: { Authorization: `Bearer ${data.token}` },
     };
-    try {
-      let res = await axios.post(
-        "https://atapp.fly.dev/v1/team",
-        {
-          name: teamName,
-          description: description,
-          protected: publicGroup,
-        },
-        config
-      );
-      console.log(res.data);
-      if (res.status == 200) {
-        toast.success("team created!");
-      }
-    } catch (e: any) {
+
+    let res = await axios.post(
+      "https://atapp.fly.dev/v1/team",
+      {
+        name: teamName,
+        description: description,
+        protected: publicGroup,
+      },
+      config
+    );
+    console.log(res.data);
+    if (res.status == 200) {
+      toast.success("team created!");
+    }
+    /*  } catch (e: any) {
       console.error(e);
       toast.error("failed to create team");
-    }
+    } */
   }
   return (
     <div className="px-8 py-16">
