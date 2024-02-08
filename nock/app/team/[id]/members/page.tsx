@@ -161,7 +161,7 @@ export default function Team({ params }: Props) {
             return <div key={idx}>{member.User.Name}</div>;
         })}
       </div>
-      <BottomNav id={params.id} />
+      <BottomNav />
     </div>
   );
 }

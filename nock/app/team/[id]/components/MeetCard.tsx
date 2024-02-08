@@ -187,7 +187,6 @@ export function MeetCard({
         (meetRes.data.Location.Longitude - location.long);
       if (distance > 50) {
         toast.error("too far away to mark attendance");
-        return;
       }
 
       const res = await axios.patch(

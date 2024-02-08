@@ -33,9 +33,6 @@ export default function Signin() {
       toast.error("login failed:", e);
       console.error(e);
     }
-
-    //let res = await fetch("https://atapp.fly.dev/v1/auth/google/login");
-    //console.log(await res.json());
   }
   return (
     <div className="px-6 pt-12 flex flex-col sm:h-[calc(var(--vh, 1vh)*100)]">
@@ -70,7 +67,9 @@ export default function Signin() {
           <label htmlFor="floating_outlined" className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2">Password</label>
         </div>
       </div>
+
       <Link href={'/forgot-password'} className="flex justify-end py-4 text-muted text-sm font-bold">Forgot Password?</Link>
+
       <button
         className="bg-theme-blue text-white py-4 px-16 my-2 rounded-lg w-[100%]"
         onClick={initiateLogin}

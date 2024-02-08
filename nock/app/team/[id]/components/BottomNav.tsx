@@ -1,4 +1,4 @@
-import { Home, Videocam } from "@mui/icons-material";
+import { Home, Videocam, Public } from "@mui/icons-material";
 import Link from "next/link";
 
 export default function BottomNav() {
@@ -13,6 +13,11 @@ export default function BottomNav() {
         <div>
           <Link href={`/meets`}>
             <Videocam fontSize="large" className="m-2 text-[#007AFF]" />
+          </Link>
+        </div>
+        <div>
+          <Link href={`/public-teams`}>
+            <Public fontSize="large" className="m-2 text-[#007AFF]" />
           </Link>
         </div>
       </div>
