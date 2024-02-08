@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import BottomNav from "../team/[id]/components/BottomNav";
 import axios from "axios";
+import TopNav from "./components/TopNav";
 
 export default function MyMeets() {
   const [meets, setMeets] = useState<any[]>([]);
@@ -31,23 +32,27 @@ export default function MyMeets() {
   }
   return (
     <div>
-      <div className="text-lg font-bold p-2">My meetings</div>
-      {meets.map((meet) => (
-        <div key={meet.Meeting.ID} className="bg-gray-200 rounded-md m-4">
-          <div className="p-2 font-semibold">{meet.Meeting.Title}</div>
-          <div className="p-4 text-sm">
-            <div>
-              <span className="font-semibold">Date:</span>{" "}
-              {meet.Meeting.StartTime}
-            </div>
-            <div>
-              <span className="font-semibold">Venue:</span> {meet.Meeting.Venue}
+      <TopNav />
+      <div className="text-lg font-bold px-4">My meetings</div>
+      <div className="h-full">
+        {meets.map((meet) => (
+          <div key={meet.Meeting.ID} className="bg-gray-200 rounded-md m-4">
+            <div className="p-2 font-semibold">{meet.Meeting.Title}</div>
+            <div className="p-4 text-sm">
+              <div>
+                <span className="font-semibold">Date:</span>{" "}
+                {meet.Meeting.StartTime}
+              </div>
+              <div>
+                <span className="font-semibold">Venue:</span>{" "}
+                {meet.Meeting.Venue}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
       <div className=" bottom-0 fixed w-full max-w-md">
-        <BottomNav />
+        <BottomNav active="meeting" />
       </div>
     </div>
   );

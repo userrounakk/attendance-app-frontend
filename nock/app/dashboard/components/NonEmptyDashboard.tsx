@@ -3,6 +3,8 @@ import { useState } from "react";
 import TeamCard from "./TeamCard";
 import Link from "next/link";
 import BottomNav from "@/app/team/[id]/components/BottomNav";
+import TopNav from "@/app/team/[id]/components/TopNav";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 export default function NonEmptyDashboard({ teams }: any) {
   console.log(teams);
   const [showOptions, setShowOptions] = useState(false);
@@ -12,7 +14,8 @@ export default function NonEmptyDashboard({ teams }: any) {
   }
 
   return (
-    <div className="h-full justify-between flex flex-col p-8">
+    <div className="h-full justify-between flex flex-col ">
+      <TopNav />
       <div className="p-4 font-semibold text-lg">Teams</div>
       {teams.map((team: any, idx: number) => (
         <TeamCard
@@ -22,12 +25,13 @@ export default function NonEmptyDashboard({ teams }: any) {
           description={team.Team.Description}
         />
       ))}
-      <button
-        onClick={handleButtonClick}
+      {/* TODO: Implement Filter  */}
+      {/* <button
+        onClick={handleButtonClick} // TODO: handle filter
         title="Create or join team"
-        className="fixed right-8 z-90 bottom-24 bg-blue-600 w-20 h-20 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-blue-700 hover:drop-shadow-2xl duration-200"
+        className="fixed right-8 z-90 bottom-24 bg-blue-600 w-14 h-14 rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl hover:bg-blue-700 hover:drop-shadow-2xl duration-200"
       >
-        +
+        <FilterAltIcon />
       </button>
       {showOptions && (
         <div className="absolute bottom-44 right-8 flex flex-col bg-white p-4 shadow-md rounded">
@@ -36,8 +40,8 @@ export default function NonEmptyDashboard({ teams }: any) {
           </Link>
           <Link href="/join-team">Join Team</Link>
         </div>
-      )}
-      <BottomNav />
+      )} */}
+      <BottomNav active="dashboard" />
     </div>
   );
 }
