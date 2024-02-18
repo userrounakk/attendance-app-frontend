@@ -5,6 +5,7 @@ import BottomNav from "../team/[id]/components/BottomNav";
 import axios from "axios";
 import { getTeams } from "./api/fetchTeams";
 import toast, { Toaster } from "react-hot-toast";
+import TopNav from "./components/TopNav";
 
 export default function PublicTeams() {
   const [teams, setTeams] = useState<any>([]);
@@ -39,23 +40,29 @@ export default function PublicTeams() {
   }
 
   return (
-    <div className="h-full justify-between flex flex-col p-8">
+    <div className="min-h-full justify-between flex flex-col">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="p-4 font-semibold text-lg">Teams</div>
-      {teams &&
-        teams.map((team: any, idx: number) => (
-          <div className="flex flex-row justify-between p-4" key={idx}>
-            <div className="text-lg font-semibold">{team.Name}</div>
+      <TopNav />
+      <div className="p-4 font-semibold text-lg mt-14">Teams</div>
+      <div className="min-h-full mb-20">
+        {teams &&
+          teams.map((team: any, idx: number) => (
             <div
-              className="text-[#3D73DD]"
-              onClick={() => joinTeam(team.Invite)}
+              className="flex flex-row justify-between p-4  m-2 rounded border border-[#0000009d] bg-[#f5f5f5]"
+              key={idx}
             >
-              Join
+              <div className="text-lg font-semibold">{team.Name}</div>
+              <div
+                className="text-[#3D73DD]"
+                onClick={() => joinTeam(team.Invite)}
+              >
+                Join
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+      </div>
 
-      <BottomNav />
+      <BottomNav active="discovery" />
     </div>
   );
 }
