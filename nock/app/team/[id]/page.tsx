@@ -22,6 +22,7 @@ export default function Team({ params }: Props) {
   const [attendanceStates, setAttendanceStates] = useState<any>({});
   const [userRole, setUserRole] = useState("");
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("upcoming");
 
   useEffect(() => {
     async function getMeetingData() {
@@ -80,6 +81,7 @@ export default function Team({ params }: Props) {
   }, []);
 
   async function getMeetings(filter: string) {
+    setFilter(filter);
     const userData = localStorage.getItem("userData")!;
     let data = JSON.parse(userData);
     const config = {
@@ -97,35 +99,43 @@ export default function Team({ params }: Props) {
     return <div>Loading...</div>;
   }
   return (
-    <div className="">
+    <div>
       <Toaster position="top-center" reverseOrder={false} />
 
       <div className="p-4">
         <BackButton />
       </div>
 
-      <div className="flex flex-row justify-between">
+      {/* <div className="flex flex-row justify-between">
         <AccountCircleIcon className="text-[#D9D9D9] m-4" fontSize="large" />
         <MoreHorizIcon className="m-4" fontSize="large" />
-      </div>
-      <div className="flex flex-row space-x-3 justify-center my-3">
-        <div
-          className="bg-[#D9D9D9] rounded-2xl p-1 text-xs"
-          onClick={() => getMeetings("upcoming")}
-        >
-          upcoming
-        </div>
-        <div
-          className="bg-[#D9D9D9] rounded-2xl p-1 text-xs"
-          onClick={() => getMeetings("all")}
-        >
-          all
-        </div>
-        <div
-          className="bg-[#D9D9D9] rounded-2xl p-1 text-xs"
-          onClick={() => getMeetings("past")}
-        >
-          done
+      </div> */}
+      <div className=" w-full p-4 overflow-hidden ">
+        <div className="flex rounded-md bg-[#7676801F] gap-1 p-0.5 ">
+          <div
+            className={`${
+              filter == "upcoming" ? "bg-white" : "bg-grey"
+            } flex-1 rounded-md p-2 text-xs text-center`}
+            onClick={() => getMeetings("upcoming")}
+          >
+            Upcoming
+          </div>
+          <div
+            className={`${
+              filter == "all" ? "bg-white" : "bg-grey"
+            } flex-1 rounded-md p-2 text-xs text-center`}
+            onClick={() => getMeetings("all")}
+          >
+            All
+          </div>
+          <div
+            className={`${
+              filter == "past" ? "bg-white" : "bg-grey"
+            } flex-1 rounded-md p-2 text-xs text-center`}
+            onClick={() => getMeetings("past")}
+          >
+            Done
+          </div>
         </div>
       </div>
       <div className="text-2xl font-bold p-2">Team {teamName}</div>
@@ -180,7 +190,7 @@ export default function Team({ params }: Props) {
         ""
       )}
 
-      <BottomNav />
+      <BottomNav active="meeting" />
     </div>
   );
 }

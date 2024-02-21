@@ -51,6 +51,7 @@ export default function MyMeets() {
           </div>
         ))}
       </div>
+      <div className="h-20"></div>
       <div className=" bottom-0 fixed w-full max-w-md">
         <BottomNav active="meeting" />
       </div>
