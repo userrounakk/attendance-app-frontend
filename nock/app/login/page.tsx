@@ -49,7 +49,7 @@ export default function Signin() {
         <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
           <input
             type="email"
-            id="floating_outlined"
+            id="email"
             className="p-2.5 block pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-theme-blue peer"
             placeholder=" "
             onChange={(e) => setEmail(e.target.value)}
@@ -58,7 +58,7 @@ export default function Signin() {
           {/* TODO: Add onClick handler */}
           <EditRoundedIcon className="h-6 w-6 mr-2 text-muted" />
           <label
-            htmlFor="floating_outlined"
+            htmlFor="email"
             className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2"
           >
             Email
@@ -69,7 +69,7 @@ export default function Signin() {
         <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
           <input
             type={visibility ? "text" : "password"}
-            id="floating_outlined"
+            id="password"
             className="p-2.5 block pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-theme-blue peer"
             placeholder=" "
             onChange={(e) => setPass(e.target.value)}
@@ -88,7 +88,7 @@ export default function Signin() {
             />
           )}
           <label
-            htmlFor="floating_outlined"
+            htmlFor="password"
             className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2"
           >
             Password
