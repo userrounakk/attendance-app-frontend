@@ -15,7 +15,7 @@ const config: Config = {
       },
       colors: {
         'theme-blue': '#3D73DD',
-        muted: '#6A707C'
+        'muted': '#6A707C'
       }
     }
   },

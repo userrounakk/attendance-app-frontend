@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import BackButton from "../components/BackButton";
+import BottomNav from "../team/[id]/components/BottomNav";
 export default function CreateTeam() {
   const [teamName, setTeamName] = useState("");
   const [description, setDescription] = useState("");
@@ -35,11 +36,12 @@ export default function CreateTeam() {
     } */
   }
   return (
-    <div className="px-8 py-16">
+    <div className=" py-16">
       <Toaster position="top-center" reverseOrder={false} />
-      <BackButton />
-      <div className="font-bold text-2xl py-8">Create Team</div>
-      <div className="flex flex-col my-8">
+      <div className="px-8">
+        <BackButton />
+        <div className="font-bold text-2xl py-8">Create Team</div>
+        {/* <div className="flex flex-col my-8">
         <label htmlFor="" className="text-slate-500 text-sm">
           Team Name
         </label>
@@ -49,41 +51,96 @@ export default function CreateTeam() {
           defaultValue={teamName}
           onChange={(e) => setTeamName(e.target.value)}
         />
-      </div>
-      <div className="flex flex-col">
-        <label htmlFor="" className="text-slate-500 text-sm">
-          Description
-        </label>
-        <input
-          className="border-2"
-          type="text"
-          defaultValue={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </div>
-      <div className="flex flex-col my-4">
-        <label htmlFor="" className="text-slate-500 text-sm">
-          Settings
-        </label>
-        <div className="flex flex-row justify-between px-4">
-          <div>Require approval to join</div>
-          <input
+      </div> */}
+        <div className="relative">
+          <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
+            <input
+              type="text"
+              id="team-name"
+              className="p-2.5 block pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-theme-blue peer"
+              placeholder=" "
+              onChange={(e) => setTeamName(e.target.value)}
+              style={{ fontSize: "16px" }}
+            />
+            <label
+              htmlFor="team-name"
+              className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2"
+            >
+              Team Name
+            </label>
+          </div>
+        </div>
+        {/* <div className="relative mt-5">
+        <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
+          <textarea
+            id="description"
+            className="p-2.5 block pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-theme-blue peer"
+            placeholder=" "
+            onChange={(e) => setDescription(e.target.value)}
+            style={{ fontSize: "16px" }}
+          ></textarea>
+          <label
+            htmlFor="description"
+            className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2"
+          >
+            Description
+          </label>
+        </div>
+      </div> */}
+        <div className="mt-6">
+          <label htmlFor="description">Description</label>
+          <textarea
+            placeholder="Optional"
+            name="description"
+            className="border-b-2 mt-2 focus:outline-none focus:border-b-2 focus:border-theme-blue"
+            id="description"
+            onChange={(e) => setDescription(e.target.value)}
+            cols={28}
+            rows={1}
+          ></textarea>
+        </div>
+
+        <div className="flex flex-col mt-8">
+          <label htmlFor="" className="text-slate-500 text-sm">
+            Settings
+          </label>
+          <div className="flex flex-row justify-between mt-2">
+            <div>Require approval to join</div>
+            {/* <input
             className="border-2"
             type="checkbox"
             defaultChecked={publicGroup}
             onChange={(e) => setPublicGroup(e.target.checked)}
-          />
+          /> */}
+
+            <label className="inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                defaultChecked={publicGroup}
+                className="sr-only peer"
+                onChange={(e) => setPublicGroup(e.target.checked)}
+              />
+              <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-[#838BA1] peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-[#838BA1] peer-checked:bg-blue-600"></div>
+            </label>
+          </div>
+          <div className="text-slate-500 text-xs mt-3">
+            Super Admin/Admin must approve new members before they can join.
+          </div>
         </div>
-        <div className="text-slate-500 text-xs">
-          Super Admin/Admin must approve new members before they can join.
-        </div>
-      </div>
-      <button
+        {/* <button
         className="bg-[#3D73DD] text-white py-4 px-16 my-16 rounded-sm w-[100%]"
         onClick={initiateTeamCreation}
       >
         Create Team
-      </button>
+      </button> */}
+        <button
+          className="bg-theme-blue text-white py-4 px-16 mt-10 rounded-lg w-[100%]"
+          onClick={initiateTeamCreation}
+        >
+          Create Team
+        </button>
+      </div>
+      <BottomNav active="dashboard" />
     </div>
   );
 }
