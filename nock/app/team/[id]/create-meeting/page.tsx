@@ -84,49 +84,49 @@ export default function Team({ params }: Props) {
             Meeting Name
           </label>
           <input
-            className="border-b-2 border-black"
+            className="mt-2 border-b-2 border-black focus:outline-none focus:ring-0"
             type="text"
             onChange={(e) => setMeetingName(e.target.value)}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-10">
           <label htmlFor="" className="text-slate-500">
             Meeting Description
           </label>
           <input
-            className="border-b-2 border-black"
+            className="mt-2 border-b-2 border-black focus:outline-none focus:ring-0"
             type="text"
             onChange={(e) => setMeetingDescription(e.target.value)}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-10">
           <label htmlFor="" className="text-slate-500">
             Time
           </label>
           <input
-            className="border-b-2 border-black"
+            className="mt-2 border-b-2 border-black focus:outline-none focus:ring-0"
             type="datetime-local"
             onChange={(e) => setStartTime(e.target.value)}
           />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-10">
           <label htmlFor="" className="text-slate-500">
             Location
           </label>
           <input
-            className="border-b-2 border-black"
+            className="mt-2 border-b-2 border-black focus:outline-none focus:ring-0"
             type="text"
             onChange={(e) => setVenue(e.target.value)}
           />
         </div>
         <button
-          className="bg-[#3D73DD] text-white py-4 px-16 my-2 rounded-md w-[100%]"
+          className="bg-theme-blue text-white py-4 px-16 mt-8 rounded-lg w-[100%]"
           onClick={createMeeting}
         >
           Create Meeting
         </button>
       </div>
-      <BottomNav />
+      <BottomNav active="meeting" />
     </div>
   );
 }

@@ -18,7 +18,7 @@ export default function CreateTeam() {
     };
 
     let res = await axios.post(
-      "https://atapp.fly.dev/v1/team",
+      "https://atapp.fly.dev/v1/team/",
       {
         name: teamName,
         description: description,
@@ -27,7 +27,7 @@ export default function CreateTeam() {
       config
     );
     console.log(res.data);
-    if (res.status == 200) {
+    if (res.status == 201) {
       toast.success("team created!");
     }
     /*  } catch (e: any) {
@@ -92,10 +92,11 @@ export default function CreateTeam() {
           <textarea
             placeholder="Optional"
             name="description"
-            className="border-b-2 mt-2 focus:outline-none focus:border-b-2 focus:border-theme-blue"
+            className="border-b-2 mt-4 focus:outline-none focus:border-b-2 focus:border-theme-blue"
             id="description"
             onChange={(e) => setDescription(e.target.value)}
-            cols={28}
+            // cols={28}
+            style={{ width: "100%" }}
             rows={1}
           ></textarea>
         </div>
