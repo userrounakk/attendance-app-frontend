@@ -93,7 +93,15 @@ export default function Team({ params }: Props) {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-full w-full">
+        <img
+          className=" h-full w-full"
+          src={"/loading.gif"}
+          alt="loading screen"
+        />
+      </div>
+    );
   }
   return (
     <div className="px-4 py-8">
@@ -161,7 +169,7 @@ export default function Team({ params }: Props) {
             return <div key={idx}>{member.User.Name}</div>;
         })}
       </div>
-      <BottomNav />
+      <BottomNav active="dashboard" />
     </div>
   );
 }

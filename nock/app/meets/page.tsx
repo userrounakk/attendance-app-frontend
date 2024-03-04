@@ -28,7 +28,15 @@ export default function MyMeets() {
     getMyMeetings();
   }, []);
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-full w-full">
+        <img
+          className=" h-full w-full"
+          src={"/loading.gif"}
+          alt="loading screen"
+        />
+      </div>
+    );
   }
   return (
     <div>
@@ -37,7 +45,9 @@ export default function MyMeets() {
       <div className="h-full">
         {meets.map((meet) => (
           <div key={meet.Meeting.ID} className="bg-gray-200 rounded-md m-4">
-            <div className="p-2 font-semibold">{meet.Meeting.Title}</div>
+            <div className="p-2 font-semibold">
+              {meet.Team.Name} - {meet.Meeting.Title}
+            </div>
             <div className="p-4 text-sm">
               <div>
                 <span className="font-semibold">Date:</span>{" "}

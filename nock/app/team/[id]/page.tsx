@@ -96,7 +96,15 @@ export default function Team({ params }: Props) {
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-full w-full">
+        <img
+          className=" h-full w-full"
+          src={"/loading.gif"}
+          alt="loading screen"
+        />
+      </div>
+    );
   }
   return (
     <>

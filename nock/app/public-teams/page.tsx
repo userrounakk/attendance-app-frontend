@@ -43,8 +43,11 @@ export default function PublicTeams() {
     <div className="min-h-full justify-between flex flex-col">
       <Toaster position="top-center" reverseOrder={false} />
       <TopNav />
-      <div className="p-4 font-semibold text-lg mt-14">Teams</div>
-      <div className="min-h-full mb-20">
+      <div className="px-4 pt-5 font-semibold text-lg mt-14">Teams</div>
+      <div className="font-semibold px-4 mb-2 text-muted">
+        Anyone can join these teams.
+      </div>
+      <div className="min-h-full mb-20 px-2">
         {teams &&
           teams.map((team: any, idx: number) => (
             <div
