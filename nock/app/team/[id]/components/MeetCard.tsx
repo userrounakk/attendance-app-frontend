@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 type Props = {
+  title: string;
   date: string;
   time: string;
   venue: string;
@@ -16,12 +17,14 @@ type Props = {
   attendance: boolean;
   setAttendance: any;
   userRole: string;
+  over: boolean;
 };
 type Location = {
   lat: number;
   long: number;
 };
 export function MeetCard({
+  title,
   date,
   time,
   venue,
@@ -32,6 +35,7 @@ export function MeetCard({
   attendance,
   setAttendance,
   userRole,
+  over,
 }: Props) {
   const [location, setLocation] = useState<Location>({ lat: 0, long: 0 });
   useEffect(() => {
@@ -216,21 +220,41 @@ export function MeetCard({
       giveAttendance();
     }
   }
+
   return (
     <div className="bg-gray-200 rounded-md m-4">
-      <Link href={`/team/${teamId}/${meetId}`}>
-        <div className="text-center p-2">Meeting Alert</div>
-        <div className="p-4 text-sm">
-          <div>Date: {date}</div>
-          <div>Time: {time}</div>
-          <div>Venue: {venue}</div>
-        </div>
-      </Link>
+      {userRole === "super_admin" || userRole === "admin" ? (
+        <Link href={`/team/${teamId}/${meetId}`}>
+          <div className="text-center p-2">Meeting Alert</div>
+          <div className="p-4 text-sm">
+            <b>
+              <div>Title: {title}</div>
+            </b>
+            <div>Date: {date}</div>
+            <div>Time: {time}</div>
+            <div>Venue: {venue}</div>
+          </div>
+        </Link>
+      ) : (
+        <>
+          <div className="text-center p-2">Meeting Alert</div>
+          <div className="p-4 text-sm">
+            <b>
+              <div>Title: {title}</div>
+            </b>
+            <div>Date: {date}</div>
+            <div>Time: {time}</div>
+            <div>Venue: {venue}</div>
+          </div>
+        </>
+      )}
       <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
       {
-        userRole === "super_admin" || userRole === "admin" ? (
+        !over && (userRole === "super_admin" || userRole === "admin") ? (
           <div
-            className="text-center p-2 text-[#007AFF]"
+            className={`text-center p-2 ${
+              over ? "text-muted" : "text-[#007AFF]"
+            }`}
             onClick={handleMeeting}
           >
             {onGoing ? "End Meeting" : "Start Meeting"}
@@ -239,16 +263,21 @@ export function MeetCard({
       }
 
       <div className="w-full bg-[#545458A6] h-[0.1px]"></div>
-      <div
-        className="text-center p-2 text-[#007AFF]"
-        onClick={handleAttendance}
-      >
-        {userRole === "super_admin" || userRole === "admin"
-          ? attendance
-            ? "End Attendance"
-            : "Take Attendance"
-          : "Give Attendance"}
-      </div>
+
+      {!over ? (
+        <div
+          className="text-center p-2 text-[#007AFF]"
+          onClick={handleAttendance}
+        >
+          {userRole === "super_admin" || userRole === "admin"
+            ? attendance
+              ? "End Attendance"
+              : "Take Attendance"
+            : "Give Attendance"}
+        </div>
+      ) : (
+        <div className="text-center p-2 text-muted">Meeting is over</div>
+      )}
     </div>
   );
 }

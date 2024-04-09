@@ -1,5 +1,6 @@
 "use client";
 
+import BackButton from "@/app/components/BackButton";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -26,27 +27,26 @@ export default function Attendees({ params }: Props) {
           `https://atapp.fly.dev/v1/team/${params.id}/meetings/${params.meetId}/attendance`,
           config
         );
-        console.log(res.data);
 
         if (res.status == 200) {
           console.log(res.data);
           setAttendees(res.data);
-          toast.success("attendees fetched sucessfully");
         } else {
-          toast.error("failed to fetch");
+          toast.error(res.data.message);
         }
       } catch (e: any) {
         console.error(e);
-        toast.error("failed to get attendees");
+        toast.error(e.response.data.message);
       }
     }
     getAttendees();
   }, []);
   return (
-    <div>
+    <div className="px-6 pt-12">
       <Toaster position="top-center" reverseOrder={false} />
-      <div className="p-4 font-semibold text-lg">Attendees: </div>
-      {attendees &&
+      <BackButton />
+      <div className="font-bold text-3xl py-8">Attendees: </div>
+      {attendees ? (
         attendees.map((attendee) => (
           <div key={attendee.ID} className="flex flex-row justify-between p-4">
             <img
@@ -65,7 +65,12 @@ export default function Attendees({ params }: Props) {
               )}
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <center className="mt-20">
+          <div className="text-2xl text-muted">No Attendees Yet</div>
+        </center>
+      )}
     </div>
   );
 }

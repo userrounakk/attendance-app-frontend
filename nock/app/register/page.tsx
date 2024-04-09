@@ -40,12 +40,12 @@ export default function Signin() {
             "https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg",
         });
         toast.dismiss();
-        toast.success("signup success");
+        toast.success("Sign up success");
         router.push("/verify-otp?email=" + email);
         console.log(res.data);
       } catch (e: any) {
         toast.dismiss();
-        toast.error("signup failed: ", e);
+        toast.error(e.response.data.message);
         console.error(e);
         setLoading(false);
       }

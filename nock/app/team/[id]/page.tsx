@@ -2,9 +2,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { MeetCard } from "./components/MeetCard";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import BottomNav from "./components/BottomNav";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import Link from "next/link";
@@ -17,6 +17,8 @@ type Props = {
 
 export default function Team({ params }: Props) {
   const [teamName, setTeamName] = useState("");
+  const [invite, setInvite] = useState("");
+  const [code, setCode] = useState(false);
   const [meets, setMeets] = useState([]);
   const [goingStates, setGoingStates] = useState<any>({}); // Use an object to store going state for each meet
   const [attendanceStates, setAttendanceStates] = useState<any>({});
@@ -74,6 +76,8 @@ export default function Team({ params }: Props) {
         config
       );
       setTeamName(res.data.Name);
+      setInvite(res.data.Invite);
+      setCode(res.data.Protected);
     }
     getTeamData();
     setLoading(false);
@@ -110,11 +114,25 @@ export default function Team({ params }: Props) {
     <>
       <div className="p-2">
         <Toaster position="top-center" reverseOrder={false} />
-
         <div className="p-4">
           <BackButton />
         </div>
         <div className="text-2xl font-bold p-2">Team {teamName}</div>
+        {userRole === "super_admin" && code && (
+          <div className="p-2">
+            Invite code:{" "}
+            <span
+              className="text-blue-500"
+              onClick={() => {
+                navigator.clipboard.writeText(invite);
+                toast.success("Invite code copied to clipboard");
+              }}
+            >
+              {invite}{" "}
+            </span>
+            {/* copy invite code on click  */}
+          </div>
+        )}
         <div className="text-2xl font-semibold p-2">Meetings</div>
         {/* <div className="flex flex-row justify-between">
         <AccountCircleIcon className="text-[#D9D9D9] m-4" fontSize="large" />
@@ -154,9 +172,13 @@ export default function Team({ params }: Props) {
             const attendance = attendanceStates[meet.ID];
             return (
               <MeetCard
+                title={meet.Title}
                 key={idx}
                 date={new Date(meet.StartTime).toDateString()}
-                time={new Date(meet.StartTime).toTimeString()}
+                time={new Date(meet.StartTime).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
                 venue={meet.Venue}
                 teamId={params.id}
                 meetId={meet.ID}
@@ -177,6 +199,7 @@ export default function Team({ params }: Props) {
                   console.log(value, attendanceStates);
                 }}
                 userRole={userRole}
+                over={meet.MeetingOver}
               />
             );
           })
