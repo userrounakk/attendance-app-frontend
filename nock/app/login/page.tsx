@@ -16,22 +16,36 @@ export default function Signin() {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [visibility, setVisibility] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function initiateLogin() {
     console.log(email, pass);
+    if (email === "" || pass === "") {
+      toast.error("Please fill all fields");
+      return;
+    }
+    setLoading(true);
+    toast.loading("Logging in...");
     try {
       let res = await axios.post("https://atapp.fly.dev/v1/auth/login", {
         email: email,
         password: pass,
       });
       console.log(res.data);
+      toast.dismiss();
       toast.success("logged in sucessfully");
       localStorage.setItem("userData", JSON.stringify(res.data));
-
+      setLoading(false);
       router.push("/dashboard");
     } catch (e: any) {
-      toast.error("login failed:", e);
+      toast.dismiss();
+      setLoading(false);
+      // if (e.response.data.status == 400) {
+      //   toast.error("Invalid Credentials");
+      // } else {
+      toast.error(e.response.data.message);
+      // }
       console.error(e);
     }
   }
@@ -41,113 +55,119 @@ export default function Signin() {
     });
   }
   return (
-    <div className="px-6 pt-12 flex flex-col sm:h-[calc(var(--vh, 1vh)*100)]">
+    <div className="relative">
       <Toaster position="top-center" reverseOrder={false} />
-      <BackButton />
-      <div className="font-bold text-3xl py-8">Log In</div>
-      <div className="relative">
-        <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
-          <input
-            type="email"
-            id="email"
-            className="p-2.5 block pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-theme-blue peer"
-            placeholder=" "
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ fontSize: "16px" }}
-          />
-          {/* TODO: Add onClick handler */}
-          <EditRoundedIcon className="h-6 w-6 mr-2 text-muted" />
-          <label
-            htmlFor="email"
-            className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2"
-          >
-            Email
-          </label>
-        </div>
-      </div>
-      <div className="relative mt-4">
-        <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
-          <input
-            type={visibility ? "text" : "password"}
-            id="password"
-            className="p-2.5 block pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-theme-blue peer"
-            placeholder=" "
-            onChange={(e) => setPass(e.target.value)}
-            style={{ fontSize: "16px" }}
-          />
-          {/* TODO: Add onClick handler */}
-          {visibility ? (
-            <VisibilityOffIcon
-              className="h-6 w-6 mr-2 text-muted"
-              onClick={() => setVisibility(false)}
+      {loading && (
+        <div className="absolute inset-0 bg-white bg-opacity-50 z-50"></div>
+      )}
+      <div className="px-6 pt-12 flex flex-col sm:h-[calc(var(--vh, 1vh)*100)]">
+        <BackButton />
+        <div className="font-bold text-3xl py-8">Log In</div>
+        <div className="relative">
+          <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
+            <input
+              type="email"
+              id="email"
+              className="p-2.5 block pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-theme-blue peer"
+              placeholder=" "
+              onChange={(e) => setEmail(e.target.value)}
+              style={{ fontSize: "16px" }}
             />
-          ) : (
-            <VisibilityRoundedIcon
-              className="h-6 w-6 mr-2 text-muted"
-              onClick={() => setVisibility(true)}
+            <EditRoundedIcon className="h-6 w-6 mr-2 text-muted" />
+            <label
+              htmlFor="email"
+              className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2"
+            >
+              Email
+            </label>
+          </div>
+        </div>
+        <div className="relative mt-4">
+          <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
+            <input
+              type={visibility ? "text" : "password"}
+              id="password"
+              className="p-2.5 block pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg appearance-none focus:outline-none focus:ring-0 focus:border-theme-blue peer"
+              placeholder=" "
+              onChange={(e) => setPass(e.target.value)}
+              style={{ fontSize: "16px" }}
             />
-          )}
-          <label
-            htmlFor="password"
-            className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2"
+            {visibility ? (
+              <VisibilityOffIcon
+                className="h-6 w-6 mr-2 text-muted"
+                onClick={() => setVisibility(false)}
+              />
+            ) : (
+              <VisibilityRoundedIcon
+                className="h-6 w-6 mr-2 text-muted"
+                onClick={() => setVisibility(true)}
+              />
+            )}
+            <label
+              htmlFor="password"
+              className="absolute text-sm text-gray-500  duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-theme-blue  peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 peer-focus:translate-x-2 rtl:peer-focus:translate-x-1/4 start-2"
+            >
+              Password
+            </label>
+          </div>
+        </div>
+
+        <Link
+          href={"/forgot-password"}
+          className="flex justify-end py-4 text-muted text-sm font-bold"
+        >
+          Forgot Password?
+        </Link>
+
+        <button
+          className="bg-theme-blue text-white py-4 px-16 my-2 rounded-lg w-[100%]"
+          onClick={initiateLogin}
+          disabled={loading}
+        >
+          Login
+        </button>
+
+        <div className="inline-flex items-center justify-center w-full">
+          <hr className="w-full my-8 bg-gray-200" />
+          <div className="absolute px-4 -translate-x-1/2 bg-white text-muted text-sm left-1/2">
+            Or Login with
+          </div>
+        </div>
+        <div className="flex justify-center ">
+          <div
+            className="bg-white w-full p-4 rounded-md border border-gray-300 mr-4"
+            onClick={showToast}
           >
-            Password
-          </label>
+            <center>
+              <FacebookIcon component="svg" />
+            </center>
+          </div>
+          <div
+            className="bg-white w-full p-4 rounded-md border border-gray-300 mr-4"
+            onClick={showToast}
+          >
+            <center>
+              <GoogleIcon component="svg" />
+            </center>
+          </div>
+          <div
+            className="bg-white w-full p-4 rounded-md border border-gray-300"
+            onClick={showToast}
+          >
+            <center>
+              <AppleIcon component="svg" />
+            </center>
+          </div>
         </div>
+
+        <Link href={"/register"} className="mt-16 text-sm text-center mb-4">
+          Don&apos;t have an account?{" "}
+          <span className="text-theme-blue">Register Now</span>
+        </Link>
+        <Link href={"/verify-otp"} className="mt-5 text-sm text-center mb-4">
+          Verify your email{" "}
+        </Link>
       </div>
-
-      <Link
-        href={"/forgot-password"}
-        className="flex justify-end py-4 text-muted text-sm font-bold"
-      >
-        Forgot Password?
-      </Link>
-
-      <button
-        className="bg-theme-blue text-white py-4 px-16 my-2 rounded-lg w-[100%]"
-        onClick={initiateLogin}
-      >
-        Login
-      </button>
-
-      <div className="inline-flex items-center justify-center w-full">
-        <hr className="w-full my-8 bg-gray-200" />
-        <div className="absolute px-4 -translate-x-1/2 bg-white text-muted text-sm left-1/2">
-          Or Login with
-        </div>
-      </div>
-      {/* TODO: Add onClick handler */}
-      <div className="flex justify-center ">
-        <div
-          className="bg-white w-full p-4 rounded-md border border-gray-300 mr-4"
-          onClick={showToast}
-        >
-          <center>
-            <FacebookIcon component="svg" />
-          </center>
-        </div>
-        <div
-          className="bg-white w-full p-4 rounded-md border border-gray-300 mr-4"
-          onClick={showToast}
-        >
-          <center>
-            <GoogleIcon component="svg" />
-          </center>
-        </div>
-        <div
-          className="bg-white w-full p-4 rounded-md border border-gray-300"
-          onClick={showToast}
-        >
-          <center>
-            <AppleIcon component="svg" />
-          </center>
-        </div>
-      </div>
-
-      <Link href={"/register"} className="mt-16 text-sm text-center mb-4">
-        Don&apos;t have an account?{" "}
-        <span className="text-theme-blue">Register Now</span>
-      </Link>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function Verify() {
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
     async function verifyEmail() {
@@ -17,7 +18,9 @@ export default function Verify() {
           )}&otp=${searchParams.get("otp")}`
         );
         console.log(res.data);
-        toast.success("verification sucess");
+        toast.success("verification success");
+        router.push("/login");
+
         localStorage.setItem("userData", JSON.stringify(res.data));
       } catch (e: any) {
         toast.error("verification failed:", e);

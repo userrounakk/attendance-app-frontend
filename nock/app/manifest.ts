@@ -2,13 +2,13 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    theme_color: "#4a90e2",
-    background_color: "#4a90e2",
+    theme_color: "#3D73DD",
+    background_color: "#3D73DD",
     display: "standalone",
     scope: "/",
     start_url: "/",
     name: "nock",
-    short_name: "nck",
+    short_name: "nock",
     description: "an attendance app",
     icons: [
       {

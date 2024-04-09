@@ -4,31 +4,33 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import { useRouter } from "next/navigation";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-
-  async function initiateForgotPassword() {
+  const router = useRouter();
+  async function initiateResend() {
     if (email === "") {
-      toast.error("Please enter a valid email");
+      toast.error("Please fill all fields");
       return;
     }
     setLoading(true);
-    toast.loading("Sending email...");
+    toast.loading("Sending verification email");
     try {
       let res = await axios.get(
-        `https://atapp.fly.dev/v1/auth/forgot-password?email=${email}`
+        `https://atapp.fly.dev/v1/auth/request-verification?email=${email}`
       );
       console.log(res.data);
       toast.dismiss();
-      toast.success("email sent");
+      toast.success("verification email has been sent");
+      setLoading(false);
+      router.push("/verify-otp?email=" + email);
     } catch (e: any) {
+      setLoading(false);
       toast.dismiss();
       toast.error("email send failed");
       console.error(e);
-    } finally {
-      setLoading(false);
     }
   }
   return (
@@ -39,7 +41,7 @@ export default function ForgotPassword() {
       )}
       <div className="px-8 py-16">
         <BackButton />
-        <div className="font-bold text-2xl py-8">Forgot Password</div>
+        <div className="font-bold text-2xl py-8">Resend Verification Link</div>
         <div className="relative mt-4">
           <div className="flex items-center border border-gray-300 rounded-lg focus-within:border-theme-blue">
             <input
@@ -62,7 +64,7 @@ export default function ForgotPassword() {
         </div>
         <button
           className="bg-theme-blue text-white py-4 px-16 my-14 mt-10 rounded-lg w-[100%]"
-          onClick={initiateForgotPassword}
+          onClick={initiateResend}
           disabled={loading}
         >
           Submit
